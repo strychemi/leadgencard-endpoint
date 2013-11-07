@@ -7,9 +7,9 @@ get '/' do
 end
 
 post '/' do
-  raw2 = request.body
-  raw = request.env["rack.input"].read
-  puts "POST request start : " + request["name"] + " : " + raw.to_str + " : " + raw2.to_str + " : " + "POST request end"
+#  raw2 = request.body
+#  raw = request.env["rack.input"].read
+  puts "POST request start : " + request["name"] + " : " + request["email"] + " : " + "POST request end"
 #  puts request["name"]
 #  "request was: #{raw}"
 #  "request was: #{raw2}"
