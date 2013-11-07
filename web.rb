@@ -9,4 +9,3 @@ end
 post '/' do
   puts "POST start: " + request["name"] + " | " + request["email"] + " | " + request["screen_name"] + " | " + request["token"] + " | " + request["card"] + " | " + request["testCustomHiddenField"] + " | POST end"
 end
-
