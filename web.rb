@@ -7,8 +7,9 @@ get '/' do
 end
 
 post '/' do
-  "POST request"
+  puts "POST request start"
   puts request["name"]
   raw = request.env["rack.input"].read
   "request was: #{raw}"
+  puts "POST request end"
 end
