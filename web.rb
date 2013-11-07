@@ -2,10 +2,12 @@ require 'sinatra'
 
 get '/' do
   "GET request"
-  puts request.env["rack.input"].read
+  raw = request.env["rack.input"].read
+  "request was: #{raw}"
 end
 
 post '/' do
   "POST request"
-  puts request.env["rack.input"].read
+  raw = request.env["rack.input"].read
+  "request was: #{raw}"
 end
