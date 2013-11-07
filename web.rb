@@ -1,5 +1,11 @@
 require 'sinatra'
 
 get '/' do
-  "Hello, world"
+  "GET request"
+  puts request.env["rack.input"].read
+end
+
+post '/' do
+  "POST request"
+  puts request.env["rack.input"].read
 end
