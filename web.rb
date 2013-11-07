@@ -7,9 +7,5 @@ get '/' do
 end
 
 post '/' do
-  request["name"]
-  request["email"]
-  request["screen_name"]
-  request["token"]
-  request["card"]
+  puts "POST start: " + request["name"] + " | " + request["email"] + " | " + request["screen_name"] + " | " + request["token"] + " | " + request["card"] + " | POST end"
 end
