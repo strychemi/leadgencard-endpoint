@@ -3,7 +3,7 @@ require 'sinatra'
 get '/' do
   "GET request"
   raw = request.env["rack.input"].read
-  "request was: #{raw}"
+  "\n\n request was: #{raw} \n\n"
 end
 
 post '/' do
