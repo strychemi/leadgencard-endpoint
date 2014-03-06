@@ -1,4 +1,5 @@
 require 'sinatra'
+require 'logger'
 
 get '/' do
   "GET request"
