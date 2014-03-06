@@ -4,6 +4,7 @@ get '/' do
   "GET request"
   raw = request.env["rack.input"].read
   puts "\n\n request was: #{raw} \n\n"
+  logger.info(request.env.inspect)
 end
 
 post '/' do
