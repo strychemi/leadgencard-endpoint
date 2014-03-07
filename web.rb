@@ -10,6 +10,6 @@ post '/' do
   puts "POST start: " + request["name"] + " | " + request["email"] + " | " + request["screen_name"] + " | " + request["token"] + " | " + request["card"] + " | " + request["testCustomHiddenField"] + " | POST end"
 #  @rawpost = request.raw_post
 #  puts "@rawpost"
-  puts "POST RAW Begin:\n" + request.env['RAW_POST_DATA'] + "\nPOST RAW End"
+  puts "POST Body Begin:\n" + request.body + "\nPOST Body End"
 end
 
