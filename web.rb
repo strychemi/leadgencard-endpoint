@@ -7,9 +7,6 @@ get '/' do
 end
 
 post '/' do
-#  puts "POST start: " + request["name"] + " | " + request["email"] + " | " + request["screen_name"] + " | " + request["token"] + " | " + request["card"] + " | " + request["testCustomHiddenField"] + " | POST end"
-#  @rawpost = request.raw_post
-#  puts "@rawpost"
-  puts "POST Body Begin:\n" + request.body.string + "\nPOST Body End"
+  puts "POST start: " + request["name"] + " | " + request["email"] + " | " + request["screen_name"] + " | " + request["token"] + " | " + request["card"] + " | " + request["testCustomHiddenField"] + " | POST end\n\nPOST Body Begin:\n" + request.body.string + "\nPOST Body End"
 end
 
