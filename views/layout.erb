@@ -9,7 +9,7 @@
 
 <hr>
 <div class="bg-info" style="padding-left: 10px; padding-right: 10px; padding-top: 5px; padding-bottom: 5px;">
-    <p>Want to lookup another card?</p>
+    <p>Want to lookup <% if defined?(card_id) %>another<% else %>a<% end %> card?</p>
 <script>
 function process()
 {
@@ -28,7 +28,7 @@ return false;
 </div>
 <hr>
     <div class="footer">
-<p class="text-muted"><small>This is a basic lead generation endpoint demo created by <a href="https://twitter.com/jaakkosf">@jaakkosf</a> from the <a href="https://twitter.com/TwitterDev">@TwitterDev</a> team. It is written in Ruby, using <a href="http://www.sinatrarb.com/">Sinatra</a> and <a href="https://github.com/mperham/dalli">dalli</a>. Basic CSS is provided by <a href="http://getbootstrap.com/">Bootstrap</a>. The source code for this project can be found at <a href="https://github.com/jaakko-sf/leadgencard-endpoint">github/jaakko-sf/leadgencard-endpoint</a>.</small></p>
+<p class="text-muted"><small>This is a basic lead generation endpoint <a href="/">demo</a> created by <a href="https://twitter.com/jaakkosf">@jaakkosf</a> from the <a href="https://twitter.com/TwitterDev">@TwitterDev</a> team. It is written in Ruby, using <a href="http://www.sinatrarb.com/">Sinatra</a> and <a href="https://github.com/mperham/dalli">dalli</a>. Basic CSS is provided by <a href="http://getbootstrap.com/">Bootstrap</a>. The source code for this project can be found at <a href="https://github.com/jaakko-sf/leadgencard-endpoint">github/jaakko-sf/leadgencard-endpoint</a>.</small></p>
 </div>
 </div>
   </body>

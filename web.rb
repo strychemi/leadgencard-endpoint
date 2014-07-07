@@ -19,6 +19,10 @@ end
 # Inbound routes
 
 get '/' do
+  erb :index
+end
+
+get '/endpoint' do
   rc = process_input("GET", request)
 
   if (rc == true)
@@ -28,7 +32,7 @@ get '/' do
   end
 end
 
-post '/' do
+post '/endpoint' do
     rc = process_input("POST", request)
 
     if (rc == true) 
