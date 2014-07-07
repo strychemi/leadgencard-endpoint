@@ -3,17 +3,17 @@ require 'sinatra'
 configure do
     require 'dalli'
 
-    cache_options = { :expires_in => 300 }
-
     if ENV["MEMCACHEDCLOUD_SERVERS"]
       servers = ENV["MEMCACHEDCLOUD_SERVERS"].split(',')
-      cache_options[":username"] = ENV["MEMCACHEDCLOUD_USERNAME"]
-      cache_options[":password"] = ENV["MEMCACHEDCLOUD_PASSWORD"]
+      username = ENV["MEMCACHEDCLOUD_USERNAME"]
+      password = ENV["MEMCACHEDCLOUD_PASSWORD"]
     else
         servers = ['localhost:11211']
+        username = nil
+        password = nil
     end
 
-    $cache = Dalli::Client.new(servers, cache_options)
+    $cache = Dalli::Client.new(servers, :username => username, :password => password, :expires_in => 300)
 end
 
 # Inbound routes
