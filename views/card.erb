@@ -1,0 +1,35 @@
+<h2>Card Data for <%= card_id %></h2>
+
+<% if @records.kind_of?(Array) && @records.length > 0 %>
+<div class="alert alert-success" role="alert">
+    <strong>Found <%= @records.length %> card records!</strong>
+</div>
+<div>
+<table class="table table-condensed table-hover">
+    <thead>
+    <tr>
+        <th>Method</th>
+        <th>Screen Name</th>
+        <th>Name</th>
+        <th>Email Present?</th>
+        <th>Token</th>
+    </tr>
+    </thead>
+    <tbody>
+    <% @records.each do |record| %>
+    <tr>
+        <td><% if record["method"].nil? %>n/a<% else %><%= record["method"] %><% end %></td>
+        <td><%= record["screen_name"] %></td>
+        <td><%= record["name"] %></td>
+        <td><%= record["email"] %></td>
+        <td><% if record["token"].nil? %>n/a<% else %><%= record["token"] %><% end %></td>
+    </tr>
+    <% end %>
+    </tbody>
+</table>
+</div>
+<% else %>
+<div class="alert alert-danger" role="alert">
+<strong>No card records found</strong>. Note that card data is not retained for longer than 5 minutes and can be lost upon service restarts.
+</div>
+<% end %>

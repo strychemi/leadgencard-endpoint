@@ -1,0 +1,35 @@
+<html>
+  <head>
+    <title>Lead Generation Card Endpoint Sample</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+  </head>
+  <body>
+    <div class="container">
+    <%= yield %>
+
+<hr>
+<div class="bg-info" style="padding-left: 10px; padding-right: 10px; padding-top: 5px; padding-bottom: 5px;">
+    <p>Want to lookup another card?</p>
+<script>
+function process()
+{
+var url="/card/" + document.getElementById("cardid").value;
+location.href=url;
+return false;
+}
+</script>
+<form role="form" class="form-inline" onSubmit="return process();">
+<div class="form-group">
+    <label for="cardid">Card ID</label>
+    <input type="text" class="form-control" id="cardid" placeholder="abc123">
+</div>
+<button type="submit" class="btn btn-primary">Lookup</button>
+</form>
+</div>
+<hr>
+    <div class="footer">
+<p class="text-muted"><small>This is a basic lead generation endpoint demo created by <a href="https://twitter.com/jaakkosf">@jaakkosf</a> from the <a href="https://twitter.com/TwitterDev">@TwitterDev</a> team. It is written in Ruby, using <a href="http://www.sinatrarb.com/">Sinatra</a> and <a href="https://github.com/mperham/dalli">dalli</a>. Basic CSS is provided by <a href="http://getbootstrap.com/">Bootstrap</a>. The source code for this project can be found at <a href="https://github.com/jaakko-sf/leadgencard-endpoint">github/jaakko-sf/leadgencard-endpoint</a>.</small></p>
+</div>
+</div>
+  </body>
+</html>
