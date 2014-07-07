@@ -2,7 +2,7 @@
 
 <% if @records.kind_of?(Array) && @records.length > 0 %>
 <div class="alert alert-success" role="alert">
-    <strong>Found <%= @records.length %> card records!</strong>
+    <strong>Found <%= @records.length %> card record<% if @records.length > 1 %>s<% end %>!</strong>
 </div>
 <div>
 <table class="table table-condensed table-hover">
