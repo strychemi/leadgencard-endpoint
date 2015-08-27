@@ -91,6 +91,11 @@ error 426 do
     #erb :error426
 end
 
+error Dalli::RingError do
+  status 503
+  erb :cache_503, :layout => :layout
+end
+
 # write to cache
 def write_to_cache(card_id, name, email, screen_name, token, method)
 
@@ -125,5 +130,6 @@ def process_input (method, request)
         return false
     end
 end
+
 
 
