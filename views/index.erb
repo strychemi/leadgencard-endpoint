@@ -1,24 +1,40 @@
 <h2>Sample Lead Generation Card Endpoint</h2>
 
 <div>
-    <p class="lead">Welcome to the leadgencard-endpoint sample. This is a basic demo of an endpoint accepting leads from Twitter <a href="https://support.twitter.com/articles/20170389">Lead Generation cards</a>.</p>
+    <p class="lead">Welcome to the leadgenCard-endpoint sample. This is a basic demo of an endpoint accepting leads from Twitter <a href="https://support.twitter.com/articles/20170389">Lead Generation Cards</a>.</p>
 </div>
 <div class="hero-unit">
 <ul>
-<li>To get started, point your card hosted at Twitter to <strong>https://<%= request.host %>/endpoint</strong>, either as a POST or a GET.</li>
-<li>Test the card out, either via the test form in the ads.twitter.com UI, or via the card itself.</li>
-<li>Then, use the card search below to check the data we received from Twitter.</li>
+<li>To get started, point your Card hosted at Twitter to <strong>https://<%= request.host %>/endpoint</strong>, either as a POST or a GET.</li>
+<li>Test the Card out, either via the test form in the ads.twitter.com UI, or via the Card itself.</li>
+<li>Then, use the Card search below to check the data we received from Twitter.</li>
 </ul>
 
 <div>
-	<h4>Want to test that your server's lead gen capture works?</h4>
+	<h4>Test  your server's lead capture endpoint </h4>
 </div>
-<p>Click on <a href="https://<%= request.host %>:<%= request.port %>/endpoint?name=Ryan Choi&screen_name=rchoi&email=test@test.com&token=SOME_TOKEN&card=12345" target="_target">this link</a>, which submits a lead capture to your server via a GET request. You should confirm you get an `OK` response</p>
-<p>Then come back here and enter card id <strong>12345</strong> below to verify the lead in your cache.</p>
+<p>Click on <a href="https://<%= request.host %>:<%= request.port %>/endpoint?name=Ryan Choi&screen_name=rchoi&email=test@test.com&token=SOME_TOKEN&Card=12345" target="_target">this link</a>, which submits a lead capture to your server via a GET request. You should confirm you get an `OK` response. Then come back here and enter Card id <strong>12345</strong> below.</p>
 
 <div>
-	<h4>Want to test with a sample lead gen card?</h4>
+	<h4>Test a sample Lead Gen Card & public back-end server</h4>
 </div>
+<p><a href="https://twitter.com/jaakkosf/status/486012969273139201">Use this tweet + Card</a> to submit a lead. (You'll have to be logged into Twitter.com first.) Then visit <a href="https://limitless-ocean-4365.herokuapp.com/Card/176b">our test server</a> and enter Card id <strong>176b</strong> below.</p>
 
-<p><a href="https://twitter.com/jaakkosf/status/486012969273139201">Use this one</a> to submit a lead. (You'll have to be logged into Twitter.com first.) Then visit <a href="https://limitless-ocean-4365.herokuapp.com/card/176b">our test server</a> and enter card id <strong>176b</strong> below.</p>
+<div>
+	<h4>Create a Card: Via the UI</h4>
+</div>
+<p>To create a Card via the UI, visit <a href="https://ads.twitter.com" target="_target">https://ads.twitter.com</a> and click on the "Creatives" link at the top. You will then see the below
+screen that will walk you through creating a Lead Gen Card. Be sure to populate the <code>Submit URL</code> as <strong>https://<%= request.host %>:<%= request.port %>/endpoint</strong> for Twitter to submit leads to your server.</p>
+<p>Lastly, ensure that you  tweet the resulting Card URL for your first Lead Gen Card in a tweet.</p>
+
+<div>
+	<h4>Create a Card: Via the API</h4>
+</div>
+<p>Below is a <a href="https://github.com/twitter/twurl" target="_target">twurl</a> example to create a Lead Gen Card:</p>
+<pre>
+twurl -H ads-api.twitter.com -X POST -d "account_id=MY_ACCOUNT_ID&name=Lead+Gen+Card+Test&image_media_id=585128923397635586&title=Test+Title&cta=Test+Now&fallback_url=http://dev.twitter.com&privacy_policy_url=http://dev.twitter.com" "/0/accounts/MY_ACCOUNT_ID/cards/lead_gen"
+</pre>
+<p>Ensure you have read how to upload media from our <a href="https://dev.twitter.com/rest/public/uploading-media">Guide to Uploading Media</a>. 
+<p>Lastly, ensure that you  tweet the resulting Card URL for your first Lead Gen Card in a tweet.</p>
+
 </div>  

@@ -19,7 +19,7 @@ it using the following command:
 
 Alternatively, the Heroku configuration is already available in the `app.json` file.
 
-Setup & Configuration
+Setup
 ---------------
 
 First, install the required gems:
@@ -33,6 +33,9 @@ Next, run the app locally with the following command:
 	
 This simply runs the app on your local machine; you likely want this app running on somewhere publicaly available so that the Twitter servers
 can connect to the machine and submit Leads.
+
+Setup on Heroku
+----------------
 
 One of the easiest ways to do so is to deploy this code sample directly to Heroku. The below Heroku instructions will accomplish this.
 
@@ -50,34 +53,16 @@ If you want to view or configure these parameters, you can view your app's Herok
 
 For more information on getting the Memcached part working, visit the [Memcached Cloud Heroku page](https://devcenter.heroku.com/articles/memcachedcloud).
 
-How the test your server
+Learning how it works
 ---------------
 
-Now that your server is running, it is set up to accepts a web request (POST or GET) from the internet to capture the lead. Eventually, 
-we will create a Lead Gen Card on Twitter that will submit leads to your server. But lets first test your server. The best way is to submit
-a direct GET to your server and verify the results.
+Now that your server is running, you can go to the root page and get instructions on the following:
 
-In the above landing page, copy the endpoint URL (`https://tranquil-shelf-2540.herokuapp.com/') and paste it into a browser. Before
-submitting, add the following to the end of the URL, which are the parameters of the lead:
+1. Testing your lead gen server's capture works
+2. Testing with a sample lead gen card and back end
+3. Creating a Lead Gen Card, either via the UI or the API
 
-	`?name=Ryan Choi&screen_name=rchoi&email=test@test.com&token=SOME_TOKEN&card=12345`
-	
-So the final might look like:
-
-	`https://tranquil-shelf-2540.herokuapp.com/endpoint?name=Ryan Choi&screen_name=rchoi&email=test@test.com&token=SOME_TOKEN&card=12345`
-	
-If successful, you will see the below response:
-
-Next, go back to he 
-
-How to create the Twitter Lead Gen Card
----------------
-
-Now that you have the URL of your server, you can create the Lead Gen Card that will post leads to the server.
-
-
-
-Public Example
+Public example
 ---------------
 
 For a working example of both the Twitter Lead Gen Card and the lead data being captured
