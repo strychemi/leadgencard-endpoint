@@ -97,7 +97,7 @@ error Dalli::RingError do
 end
 
 # write to cache
-def write_to_cache(card_id, name, email, screen_name, token, method)
+def write_to_cache(card_id, name, email, screen_name, user_id, token, method)
 
    data = $cache.get(card_id)
    unless data.kind_of?(Array)
@@ -106,7 +106,7 @@ def write_to_cache(card_id, name, email, screen_name, token, method)
 
    # this is a demo app, we have no need to keep the email we get, so let's just record if we think we got one
    email_found = (email.length > 5) ? "Yes" : "No"
-   card = {"name" => name, "email" => email_found, "screen_name" => screen_name, "token" => token, "method" => method}
+   card = {"name" => name, "email" => email_found, "screen_name" => screen_name, "user_id" => user_id, "token" => token, "method" => method}
 
    data.push(card)
 
@@ -115,16 +115,17 @@ end
 
 def process_input (method, request)
     # we always expect these fields
-    # name, email, screen_name, token, card
+    # name, email, screen_name, user_id, token, card
     # TODO we could get custom fields, store those too
     name = request["name"] ? request["name"] : nil
     email = request["email"] ? request["email"] : nil
     screen_name = request["screen_name"] ? request["screen_name"] : nil
     token = request["token"] ? request["token"] : nil
     card = request["card"] ? request["card"] : nil
+    user_id = request["tw_userId"] ? request["tw_userId"] : nil 
 
-    if (name && email && screen_name && token && card)
-        write_to_cache(card, name, email, screen_name, token, method)
+    if (name && email && screen_name && user_id && token && card)
+        write_to_cache(card, name, email, screen_name, user_id, token, method)
         return true
     else 
         return false

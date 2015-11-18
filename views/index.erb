@@ -6,7 +6,6 @@
 <ul class="nav nav-tabs" role="tablist">
   <li class="active"><a href="#home" role="tab" data-toggle="tab">Home</a></li>
   <li><a href="#test" role="tab" data-toggle="tab">Test your server</a></li>
-  <li><a href="#test_public" role="tab" data-toggle="tab">Test with a public Card and server</a></li>
   <li><a href="#card" role="tab" data-toggle="tab">Create a Lead Gen Card</a></li>
 </ul>
 
@@ -24,10 +23,15 @@
 
 <ul>
 <li>Test your own server.
-<li>Test with a public Card and a public server.
 <li>Create a Lead Gen Card via the UI.
 <li>Create a Lead Gen Card via the API.
 </ul>
+
+<p>To help you better understand the overall flow, we have a <a href="https://twitter.com/jaakkosf/status/486012969273139201">public tweet + Card</a>
+you can use to submit a lead. (You'll have to be logged into Twitter.com first.) </p>
+<p>Once you have submitted your information, you can then visit 
+<a href="https://limitless-ocean-4365.herokuapp.com/card/176b">our example test server</a> and enter Card id <strong>176b</strong> to
+confirm your lead information was sent from Twitter to the example test server.</p>
 
   </div>
 
@@ -48,15 +52,22 @@
 </ul>
 <p>Then come back here and enter the card id <strong>12345</strong> below.</p>
 
-  </div>
+	<h4>How it works</h4>
+	
+<p>After you create the Lead Gen Card and specify the <code>submit_url</code>, newly created leads will be sent to
+your server via the specified URL and either GET or POST payload that contains the following contents:
+</p>
 
-  <div class="tab-pane" id="test_public">
-  
-<div>
-	<br>
-	<h4>Test a public Lead Gen Card & back-end server</h4>
-</div>
-<p><a href="https://twitter.com/jaakkosf/status/486012969273139201">Use this tweet + Card</a> to submit a lead. (You'll have to be logged into Twitter.com first.) Then visit <a href="https://limitless-ocean-4365.herokuapp.com/card/176b">our test server</a> and enter Card id <strong>176b</strong> below.</p>
+<pre>
+{
+  "name": "Ryan Choi",
+  "email": "rchoi@twitter.com",
+  "screen_name": "rchoi",
+  "tw_userId": 54256387,
+  "card": "16po2",
+  "token": "902b59083733e717c6acd3ccae83a79d"
+}
+</pre>
 
   </div>
 
@@ -76,7 +87,7 @@ screen that will walk you through creating a Lead Gen Card. Be sure to populate 
 </div>
 <p>Below is a <a href="https://github.com/twitter/twurl" target="_target">twurl</a> example to create a Lead Gen Card:</p>
 <pre>
-twurl -H ads-api.twitter.com -X POST -d "account_id=MY_ACCOUNT_ID&name=Lead+Gen+Card+Test&image_media_id=MY_MEDIA_ID&title=Test+Title&cta=Test+Now&fallback_url=http://dev.twitter.com&privacy_policy_url=http://dev.twitter.com&submit_url=https://<%= request.host %>:<%= request.port %>/endpoint?name=Ryan+Choi&screen_name=rchoi&email=test@test.com&token=SOME_TOKEN&card=12345" "/0/accounts/MY_ACCOUNT_ID/cards/lead_gen"
+twurl -H ads-api.twitter.com -X POST -d "account_id=MY_ACCOUNT_ID&name=Lead+Gen+Card+Test&image_media_id=MY_MEDIA_ID&title=Test+Title&cta=Test+Now&fallback_url=http://dev.twitter.com&privacy_policy_url=http://dev.twitter.com&submit_method=GET&submit_url=https://<%= request.host %>/endpoint" "/0/accounts/MY_ACCOUNT_ID/cards/lead_gen"
 </pre>
 <p>Two things to note in the twurl example above:</p>
 <ul>
@@ -85,7 +96,7 @@ twurl -H ads-api.twitter.com -X POST -d "account_id=MY_ACCOUNT_ID&name=Lead+Gen+
 </ul>
 <p>The response you will receive will look like the following:</p>
 <pre>
-{"data_type":"card","data":{"name":"Lead+Gen+Card+Test","fallback_url":"http:\/\/dev.twitter.com","image":"https:\/\/pbs.twimg.com\/media-preview\/snf:666848265044799488\/8ouZRa5G.jpg","privacy_policy_url":"http:\/\/dev.twitter.com","preview_url":"https:\/\/cards.twitter.com\/cards\/MY_ACCOUNT_ID\/16pje","id":"16pje","account_id":"MY_ACCOUNT_ID","cta":"Test+Now","created_at":"2015-11-18T05:20:19Z","title":"Test+Title","updated_at":"2015-11-18T05:20:19Z","deleted":false,"card_type":"LEAD_GENERATION"},"request":{"params":{"name":"Lead+Gen+Card+Test","fallback_url":"http:\/\/dev.twitter.com","image":"https:\/\/pbs.twimg.com\/media-preview\/snf:666848265044799488\/8ouZRa5G.jpg","privacy_policy_url":"http:\/\/dev.twitter.com","account_id":"MY_ACCOUNT_ID","cta":"Test+Now","title":"Test+Title","card_type":"LEAD_GENERATION"}}}
+{"data_type":"card","data":{"name":"Lead+Gen+Card+Test","fallback_url":"http:\/\/dev.twitter.com","image":"https:\/\/pbs.twimg.com\/media-preview\/snf:666848265044799488\/mhBOmbO8.jpg","privacy_policy_url":"http:\/\/dev.twitter.com","preview_url":"https:\/\/cards.twitter.com\/cards\/MY_ACCOUNT_ID\/16po2","submit_url":"https:\/\/tranquil-shelf-2540.herokuapp.com:443\/endpoint","id":"16po2","account_id":"MY_ACCOUNT_ID","cta":"Test+Now","created_at":"2015-11-18T06:17:47Z","submit_method":"GET","title":"Test+Title","updated_at":"2015-11-18T06:17:47Z","deleted":false,"card_type":"LEAD_GENERATION"},"request":{"params":{"name":"Lead+Gen+Card+Test","fallback_url":"http:\/\/dev.twitter.com","image":"https:\/\/pbs.twimg.com\/media-preview\/snf:666848265044799488\/mhBOmbO8.jpg","privacy_policy_url":"http:\/\/dev.twitter.com","submit_url":"https:\/\/tranquil-shelf-2540.herokuapp.com:443\/endpoint?name=Ryan+Choi","account_id":"MY_ACCOUNT_ID","cta":"Test+Now","submit_method":"GET","title":"Test+Title","card_type":"LEAD_GENERATION"}}}
 </pre> 
 <p>Most importantly, the <code>preview_url</code> is the URL of the Lead Gen Card. Ensure that you tweet this resulting URL for your first Lead Gen Card in a tweet.</p>
 
