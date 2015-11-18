@@ -1,0 +1,30 @@
+{
+	"name":"leadgencard-endpoint",
+	"description":"A sample Ruby sinatra app for Twitter lead generation card endpoints.",
+	"repository":"https://github.com/twitterdev/leadgencard-endpoint",
+	"addons": ["memcachedcloud:30"],
+	"keywords":[
+		"ruby",
+		"sinatra",
+		"twitter",
+		"lead generation",
+		"skeleton"
+	],
+	"env":{
+		"MEMCACHEDCLOUD_SERVERS":{
+			"description":"IP address of Memecache Cloud servers",
+			"value":"",
+			"required":true
+		},
+		"MEMCACHEDCLOUD_USERNAME":{
+			"description":"Username to access servers",
+			"value":"",
+			"required":true
+		},
+		"MEMCACHEDCLOUD_PASSWORD":{
+			"description":"Password to access servers",
+			"value":"",
+			"required":true
+		}
+	}
+}
