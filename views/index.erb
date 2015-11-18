@@ -41,11 +41,12 @@ confirm your lead information was sent from Twitter to the example test server.<
 	<br>
 	<h4>Test your server's lead capture endpoint </h4>
 </div>
-<p>Click on <a href="https://<%= request.host %>:<%= request.port %>/endpoint?name=Ryan+Choi&screen_name=rchoi&email=test@test.com&token=SOME_TOKEN&card=12345" target="_target">this link</a>, which submits a lead capture to your server via a GET request. You should confirm you get an `OK` response.</p>
+<p>Click on <a href="https://<%= request.host %>:<%= request.port %>/endpoint?name=Ryan+Choi&screen_name=rchoi&tw_userId=12345612&email=test@test.com&token=SOME_TOKEN&card=12345" target="_target">this link</a>, which submits a lead capture to your server via a GET request. You should confirm you get an `OK` response.</p>
 <p>If you look at the URL, you will see it expects the <a href="https://dev.twitter.com/ads/reference/get/accounts/%3Aaccount_id/cards/lead_gen" target="_target">default parameters</a> below:<p>
 <ul>
 <li><i>name</i>
 <li><i>screen_name</i>
+<li><i>tw_userId</i>
 <li><i>email</i>
 <li><i>token</i>
 <li><i>card</i>
