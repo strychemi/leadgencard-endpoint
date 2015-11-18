@@ -88,7 +88,7 @@ screen that will walk you through creating a Lead Gen Card. Be sure to populate 
 </div>
 <p>Below is a <a href="https://github.com/twitter/twurl" target="_target">twurl</a> example to create a Lead Gen Card:</p>
 <pre>
-twurl -H ads-api.twitter.com -X POST -d "account_id=MY_ACCOUNT_ID&name=Lead+Gen+Card+Test&image_media_id=MY_MEDIA_ID&title=Test+Title&cta=Test+Now&fallback_url=http://dev.twitter.com&privacy_policy_url=http://dev.twitter.com&submit_method=GET&submit_url=https://<%= request.host %>/endpoint" "/0/accounts/MY_ACCOUNT_ID/cards/lead_gen"
+twurl -H ads-api.twitter.com -X POST -d "account_id=MY_ACCOUNT_ID&name=Lead Gen Card Test&image_media_id=MY_MEDIA_ID&title=Test Title&cta=Submit Now&fallback_url=http://dev.twitter.com&privacy_policy_url=http://dev.twitter.com&submit_method=POST&submit_url=https://<%= request.host %>/endpoint" "/0/accounts/MY_ACCOUNT_ID/cards/lead_gen"
 </pre>
 <p>Two things to note in the twurl example above:</p>
 <ul>
