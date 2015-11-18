@@ -14,17 +14,17 @@
 		"MEMCACHEDCLOUD_SERVERS":{
 			"description":"IP address of Memecache Cloud servers",
 			"value":"",
-			"required":true
+			"required":false
 		},
 		"MEMCACHEDCLOUD_USERNAME":{
 			"description":"Username to access servers",
 			"value":"",
-			"required":true
+			"required":false
 		},
 		"MEMCACHEDCLOUD_PASSWORD":{
 			"description":"Password to access servers",
 			"value":"",
-			"required":true
+			"required":false
 		}
 	}
 }
