@@ -19,6 +19,7 @@
     <h4>Welcome to the Lead Gen Card endpoint sample.</h4>
     <p>This is a basic demo of an endpoint accepting leads from Twitter <a href="https://support.twitter.com/articles/20170389">Lead Generation Cards</a>.</p>
 </div>
+
 <p>Now that you have the server running, there are a number of things you can do:</p>
 
 <ul>
@@ -55,8 +56,8 @@ confirm your lead information was sent from Twitter to the example test server.<
 
 	<h4>How it works</h4>
 	
-<p>After you create the Lead Gen Card and specify the <code>submit_url</code>, newly created leads will be sent to
-your server via the specified URL and either GET or POST payload that contains the following contents:
+<p>After you create a Lead Gen Card with a <code>submit_url</code>, newly captured leads on Twitter will be sent to
+your server via the URL and either GET or POST payload that contains the following parameters (formatted in JSON for readability):
 </p>
 
 <pre>
@@ -75,7 +76,6 @@ your server via the specified URL and either GET or POST payload that contains t
   <div class="tab-pane" id="card">
   
 <div>
-	<br>
 	<h4>Create a Card: Via the UI</h4>
 </div>
 <p>To create a Card via the UI, visit <a href="https://ads.twitter.com" target="_target">https://ads.twitter.com</a> and click on the "Creatives" link at the top. You will then see the below
@@ -83,7 +83,6 @@ screen that will walk you through creating a Lead Gen Card. Be sure to populate 
 <p>Lastly, ensure that you  tweet the resulting Card URL for your first Lead Gen Card in a tweet.</p>
 
 <div>
-	<br>
 	<h4>Create a Card: Via the API</h4>
 </div>
 <p>Below is a <a href="https://github.com/twitter/twurl" target="_target">twurl</a> example to create a Lead Gen Card:</p>
@@ -97,13 +96,19 @@ twurl -H ads-api.twitter.com -X POST -d "account_id=MY_ACCOUNT_ID&name=Lead Gen 
 </ul>
 <p>The response you will receive will look like the following:</p>
 <pre>
-{"data_type":"card","data":{"name":"Lead+Gen+Card+Test","fallback_url":"http:\/\/dev.twitter.com","image":"https:\/\/pbs.twimg.com\/media-preview\/snf:666848265044799488\/mhBOmbO8.jpg","privacy_policy_url":"http:\/\/dev.twitter.com","preview_url":"https:\/\/cards.twitter.com\/cards\/MY_ACCOUNT_ID\/16po2","submit_url":"https:\/\/tranquil-shelf-2540.herokuapp.com\/endpoint","id":"16po2","account_id":"MY_ACCOUNT_ID","cta":"Test+Now","created_at":"2015-11-18T06:17:47Z","submit_method":"GET","title":"Test+Title","updated_at":"2015-11-18T06:17:47Z","deleted":false,"card_type":"LEAD_GENERATION"},"request":{"params":{"name":"Lead+Gen+Card+Test","fallback_url":"http:\/\/dev.twitter.com","image":"https:\/\/pbs.twimg.com\/media-preview\/snf:666848265044799488\/mhBOmbO8.jpg","privacy_policy_url":"http:\/\/dev.twitter.com","submit_url":"https:\/\/tranquil-shelf-2540.herokuapp.com\/endpoint","account_id":"MY_ACCOUNT_ID","cta":"Test+Now","submit_method":"GET","title":"Test+Title","card_type":"LEAD_GENERATION"}}}
+{"data_type":"card","data":{"name":"Lead Gen Card Test","fallback_url":"http:\/\/dev.twitter.com","image":"https:\/\/pbs.twimg.com\/media-preview\/snf:666848265044799488\/47q4tEdq.jpg","privacy_policy_url":"http:\/\/dev.twitter.com","preview_url":"https:\/\/cards.twitter.com\/cards\/MY_ACCOUNT_ID\/16ppl","submit_url":"https:\/\/tranquil-shelf-2540.herokuapp.com\/endpoint","id":"16ppl","account_id":"MY_ACCOUNT_ID","cta":"Submit Now","created_at":"2015-11-18T06:49:59Z","submit_method":"POST","title":"Test Title","updated_at":"2015-11-18T06:49:59Z","deleted":false,"card_type":"LEAD_GENERATION"},"request":{"params":{"name":"Lead Gen Card Test","fallback_url":"http:\/\/dev.twitter.com","image":"https:\/\/pbs.twimg.com\/media-preview\/snf:666848265044799488\/47q4tEdq.jpg","privacy_policy_url":"http:\/\/dev.twitter.com","submit_url":"https:\/\/tranquil-shelf-2540.herokuapp.com\/endpoint","account_id":"MY_ACCOUNT_ID","cta":"Submit Now","submit_method":"POST","title":"Test Title","card_type":"LEAD_GENERATION"}}}
 </pre> 
-<p>Most importantly, the <code>preview_url</code> is the URL of the Lead Gen Card. Ensure that you tweet this resulting URL for your first Lead Gen Card in a tweet.</p>
+<p>Most importantly, the <code>preview_url</code> is the URL of the Lead Gen Card.</p>
 
-  
-  </div>
+<div>
+	<h4>Tweet the Card</h4>
+</div>
 
+<p>Once you have created your Card (either through the UI or the API), you should have a resulting Card URL. You can then 
+tweet this URL directly, and the Card will hydrate upon view of the Card on both web and mobile. The tweet with Card will look 
+like the below:</p>
+
+<img src="screenshot.png">
 </div>
 
 </div>  

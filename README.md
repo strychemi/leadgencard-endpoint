@@ -46,7 +46,7 @@ First, click on the below button to deploy to Heroku:
 Once this is done, you will have the option to view the server live. Click on the button to view your server, and you should see 
 the below landing page:
 
-<img src="landing.png" style="width: 70%;"/>
+<img src="public/landing.png" style="width: 70%;"/>
 
 Note that behind the scenes, the deploy created ENV parameters of the format MEMCACHEDCLOUD_*, which the `web.rb` file defaults to. 
 If you want to view or configure these parameters, you can view your app's Heroku ENV settings:
