@@ -37,7 +37,7 @@
 	<br>
 	<h4>Test your server's lead capture endpoint </h4>
 </div>
-<p>Click on <a href="https://<%= request.host %>:<%= request.port %>/endpoint?name=Ryan Choi&screen_name=rchoi&email=test@test.com&token=SOME_TOKEN&card=12345" target="_target">this link</a>, which submits a lead capture to your server via a GET request. You should confirm you get an `OK` response.</p>
+<p>Click on <a href="https://<%= request.host %>:<%= request.port %>/endpoint?name=Ryan+Choi&screen_name=rchoi&email=test@test.com&token=SOME_TOKEN&card=12345" target="_target">this link</a>, which submits a lead capture to your server via a GET request. You should confirm you get an `OK` response.</p>
 <p>If you look at the URL, you will see it expects the <a href="https://dev.twitter.com/ads/reference/get/accounts/%3Aaccount_id/cards/lead_gen" target="_target">default parameters</a> below:<p>
 <ul>
 <li><i>name</i>
@@ -46,7 +46,7 @@
 <li><i>token</i>
 <li><i>card</i>
 </ul>
-<p>Then come back here and enter Card id <strong>12345</strong> below.</p>
+<p>Then come back here and enter the card id <strong>12345</strong> below.</p>
 
   </div>
 
@@ -54,9 +54,9 @@
   
 <div>
 	<br>
-	<h4>Test a public Lead Gen Card &  back-end server</h4>
+	<h4>Test a public Lead Gen Card & back-end server</h4>
 </div>
-<p><a href="https://twitter.com/jaakkosf/status/486012969273139201">Use this tweet + Card</a> to submit a lead. (You'll have to be logged into Twitter.com first.) Then visit <a href="https://limitless-ocean-4365.herokuapp.com/Card/176b">our test server</a> and enter Card id <strong>176b</strong> below.</p>
+<p><a href="https://twitter.com/jaakkosf/status/486012969273139201">Use this tweet + Card</a> to submit a lead. (You'll have to be logged into Twitter.com first.) Then visit <a href="https://limitless-ocean-4365.herokuapp.com/card/176b">our test server</a> and enter Card id <strong>176b</strong> below.</p>
 
   </div>
 
@@ -76,9 +76,13 @@ screen that will walk you through creating a Lead Gen Card. Be sure to populate 
 </div>
 <p>Below is a <a href="https://github.com/twitter/twurl" target="_target">twurl</a> example to create a Lead Gen Card:</p>
 <pre>
-twurl -H ads-api.twitter.com -X POST -d "account_id=MY_ACCOUNT_ID&name=Lead+Gen+Card+Test&image_media_id=MY_MEDIA_ID&title=Test+Title&cta=Test+Now&fallback_url=http://dev.twitter.com&privacy_policy_url=http://dev.twitter.com" "/0/accounts/MY_ACCOUNT_ID/cards/lead_gen"
+twurl -H ads-api.twitter.com -X POST -d "account_id=MY_ACCOUNT_ID&name=Lead+Gen+Card+Test&image_media_id=MY_MEDIA_ID&title=Test+Title&cta=Test+Now&fallback_url=http://dev.twitter.com&privacy_policy_url=http://dev.twitter.com&submit_url=https://<%= request.host %>:<%= request.port %>/endpoint?name=Ryan+Choi&screen_name=rchoi&email=test@test.com&token=SOME_TOKEN&card=12345" "/0/accounts/MY_ACCOUNT_ID/cards/lead_gen"
 </pre>
-<p>Ensure you have read how to upload media from our <a href="https://dev.twitter.com/rest/public/uploading-media">Guide to Uploading Media</a>. (As a shortcut, you can tweet out an image in the UI and query back the tweet's media.id_str and use that.) 
+<p>Two things to note in the twurl example above:</p>
+<ul>
+<li>For <i>MY_ACCOUNT_ID</i>, use the 5-character string in the URL after logging into ads.twitter.com.
+<li>For <i>MY_MEDIA_ID</i>, read how to upload media on our <a href="https://dev.twitter.com/rest/public/uploading-media">Guide to Uploading Media</a>. (As a shortcut, you can tweet out an image in the UI and query back the tweet's media.id_str.)
+</ul>
 <p>The response you will receive will look like the following:</p>
 <pre>
 {"data_type":"card","data":{"name":"Lead+Gen+Card+Test","fallback_url":"http:\/\/dev.twitter.com","image":"https:\/\/pbs.twimg.com\/media-preview\/snf:666848265044799488\/8ouZRa5G.jpg","privacy_policy_url":"http:\/\/dev.twitter.com","preview_url":"https:\/\/cards.twitter.com\/cards\/MY_ACCOUNT_ID\/16pje","id":"16pje","account_id":"MY_ACCOUNT_ID","cta":"Test+Now","created_at":"2015-11-18T05:20:19Z","title":"Test+Title","updated_at":"2015-11-18T05:20:19Z","deleted":false,"card_type":"LEAD_GENERATION"},"request":{"params":{"name":"Lead+Gen+Card+Test","fallback_url":"http:\/\/dev.twitter.com","image":"https:\/\/pbs.twimg.com\/media-preview\/snf:666848265044799488\/8ouZRa5G.jpg","privacy_policy_url":"http:\/\/dev.twitter.com","account_id":"MY_ACCOUNT_ID","cta":"Test+Now","title":"Test+Title","card_type":"LEAD_GENERATION"}}}
