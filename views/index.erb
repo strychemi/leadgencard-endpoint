@@ -13,7 +13,7 @@
 <div>
 	<h4>Want to test that your server's lead gen capture works?</h4>
 </div>
-<p>Click on <a href="" target="_target">this link</a>, which submits a lead capture to your server via a GET request. You should confirm you get an `OK` response</p>
+<p>Click on <a href="https://<%= request.host %>:<%= request.port %>/endpoint?name=Ryan Choi&screen_name=rchoi&email=test@test.com&token=SOME_TOKEN&card=12345" target="_target">this link</a>, which submits a lead capture to your server via a GET request. You should confirm you get an `OK` response</p>
 <p>Then come back here and enter card id <strong>12345</strong> below to verify the lead in your cache.</p>
 
 <div>
