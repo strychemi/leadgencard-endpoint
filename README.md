@@ -19,15 +19,6 @@ it using the following command:
 
 Alternatively, the Heroku configuration is already available in the `app.json` file.
 
-Once Memcached Cloud has been added, you will notice a three new config vars in your heroku environment containing the 
-servers, username and password of your first Memcached Cloud bucket: MEMCACHEDCLOUD_SERVERS, MEMCACHEDCLOUD_USERNAME, MEMCACHEDCLOUD_PASSWORD.
-
-Use the following heroku command to view them:
-
-	`heroku config`
-	
-For more information on getting this running, visit the [Memcached Cloud Heroku page](https://devcenter.heroku.com/articles/memcachedcloud).
-
 Setup & Configuration
 ---------------
 
@@ -39,20 +30,51 @@ Next, run the app locally with the following command:
 
 	`ruby web.rb`
 	
-This simply runs the app on your local machine; you likely want this app running on somewhere publically available so that the Twitter servers
+This simply runs the app on your local machine; you likely want this app running on somewhere publicaly available so that the Twitter servers
 can connect to the machine and submit Leads.
 
-One of the easist ways to do so is to deploy this code sample directly to Heroku. The below Heroku instructions will accomplish this:
+One of the easiest ways to do so is to deploy this code sample directly to Heroku. The below Heroku instructions will accomplish this.
 
 First, click on the below button to deploy to Heroku:
 
 [![Deploy](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy?template=https://github.com/twitterdev/leadgencard-endpoint)
 
+Once this is done, you will have the option to view the server live. Click on the button to view your server, and you should see 
+the below landing page:
 
+<img src="landing.png" style="width: 70%;"/>
 
+Note that behind the scenes, the deploy created ENV parameters of the format MEMCACHEDCLOUD_BRONZE_*, which the `web.rb` file defaults to. 
+If you want to view or configure these parameters, you can view your app's Heroku ENV settings:
 
-Creating a Lead Generation Card
+For more information on getting the Memcached part working, visit the [Memcached Cloud Heroku page](https://devcenter.heroku.com/articles/memcachedcloud).
+
+How the test your server
 ---------------
+
+Now that your server is running, it is set up to accepts a web request (POST or GET) from the internet to capture the lead. Eventually, 
+we will create a Lead Gen Card on Twitter that will submit leads to your server. But lets first test your server. The best way is to submit
+a direct GET to your server and verify the results.
+
+In the above landing page, copy the endpoint URL (`https://shrouded-coast-9923.herokuapp.com/endpoint') and paste it into a browser. Before
+submitting, add the following to the end of the URL, which are the parameters of the lead:
+
+	`?name=Ryan Choi&screen_name=rchoi&email=test@test.com&token=SOME_TOKEN&card=12345`
+	
+So the final might look like:
+
+	`https://shrouded-coast-9923.herokuapp.com/endpoint?name=Ryan Choi&screen_name=rchoi&email=test@test.com&token=SOME_TOKEN&card=12345`
+	
+If successful, you will see the below response:
+
+Next, go back to he 
+
+How to create the Twitter Lead Gen Card
+---------------
+
+Now that you have the URL of your server, you can create the Lead Gen Card that will post leads to the server.
+
+
 
 Public Example
 ---------------
