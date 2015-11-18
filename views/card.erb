@@ -20,7 +20,7 @@
     <% @records.each do |record| %>
     <tr>
         <td><% if record["method"].nil? %>n/a<% else %><%= record["method"] %><% end %></td>
-        <td><%= record["user_id"] %></td>
+        <td><%= record["tw_userId"] %></td>
         <td><%= record["screen_name"] %></td>
         <td><%= record["name"] %></td>
         <td><%= record["email"] %></td>
