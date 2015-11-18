@@ -22,9 +22,10 @@ Alternatively, the Heroku configuration is already available in the `app.json` f
 Setup & Configuration
 ---------------
 
-First, install the sinatra gem:
+First, install the required gems:
 
 	`gem install sinatra`
+	`gem install dalli`
 
 Next, run the app locally with the following command:
 
