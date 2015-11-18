@@ -44,7 +44,7 @@ the below landing page:
 
 <img src="landing.png" style="width: 70%;"/>
 
-Note that behind the scenes, the deploy created ENV parameters of the format MEMCACHEDCLOUD_BRONZE_*, which the `web.rb` file defaults to. 
+Note that behind the scenes, the deploy created ENV parameters of the format MEMCACHEDCLOUD_*, which the `web.rb` file defaults to. 
 If you want to view or configure these parameters, you can view your app's Heroku ENV settings:
 
 For more information on getting the Memcached part working, visit the [Memcached Cloud Heroku page](https://devcenter.heroku.com/articles/memcachedcloud).
@@ -56,14 +56,14 @@ Now that your server is running, it is set up to accepts a web request (POST or 
 we will create a Lead Gen Card on Twitter that will submit leads to your server. But lets first test your server. The best way is to submit
 a direct GET to your server and verify the results.
 
-In the above landing page, copy the endpoint URL (`https://shrouded-coast-9923.herokuapp.com/endpoint') and paste it into a browser. Before
+In the above landing page, copy the endpoint URL (`https://tranquil-shelf-2540.herokuapp.com/') and paste it into a browser. Before
 submitting, add the following to the end of the URL, which are the parameters of the lead:
 
 	`?name=Ryan Choi&screen_name=rchoi&email=test@test.com&token=SOME_TOKEN&card=12345`
 	
 So the final might look like:
 
-	`https://shrouded-coast-9923.herokuapp.com/endpoint?name=Ryan Choi&screen_name=rchoi&email=test@test.com&token=SOME_TOKEN&card=12345`
+	`https://tranquil-shelf-2540.herokuapp.com/endpoint?name=Ryan Choi&screen_name=rchoi&email=test@test.com&token=SOME_TOKEN&card=12345`
 	
 If successful, you will see the below response:
 

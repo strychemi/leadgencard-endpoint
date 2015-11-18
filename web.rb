@@ -3,10 +3,10 @@ require 'sinatra'
 configure do
     require 'dalli'
 
-    if ENV["MEMCACHEDCLOUD_BRONZE_SERVERS"]
-      servers = ENV["MEMCACHEDCLOUD_BRONZE_SERVERS"].split(',')
-      username = ENV["MEMCACHEDCLOUD_BRONZE_USERNAME"]
-      password = ENV["MEMCACHEDCLOUD_BRONZE_PASSWORD"]
+    if ENV["MEMCACHEDCLOUD_SERVERS"]
+      servers = ENV["MEMCACHEDCLOUD_SERVERS"].split(',')
+      username = ENV["MEMCACHEDCLOUD_USERNAME"]
+      password = ENV["MEMCACHEDCLOUD_PASSWORD"]
     else
         servers = ['localhost:11211']
         username = nil
