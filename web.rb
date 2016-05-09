@@ -65,9 +65,9 @@ get '/card/:id' do |card_id|
 
   if @card.nil?
     string = "None found. A lead gen card with a card_id of #{card_id} doesn't live in this sample app database!"
+  else
+    leads = @card.leads
   end
-
-  leads = @card.leads
 
   erb :card, :locals => { leads: leads, :card_id => card_id, :string => string }, :layout => :layout
 end
@@ -133,8 +133,7 @@ def process_input(method, request)
   # check if we receive a card_id and if it doesn't exist
   if card.length > 0 && Card.find_by_card(card).nil?
     # if so, then create the card entry in our database
-    @card = Card.build(name: name, card: card)
-    if @card.save
+    if Card.create(name: name, card: card)
       puts "database saved an entry! with card_id #{card}"
     end
   end
