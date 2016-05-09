@@ -1,5 +1,6 @@
 require 'sinatra'
-
+require './config/environments'
+require './models/lead'
 # required configure block for Memcached Cloud for the server cache
 # Memcached is an in-memory key-value store for small chunks of arbitrary data
 # (strings, objects) from results of database calls, API calls, or page rendering
@@ -21,7 +22,7 @@ configure do
     # which is a convenient Ruby client for accessing memcached servers
     $cache = Dalli::Client.new(servers, :username => username, :password => password, :expires_in => 300)
 
-    #trying to see puts statements in heroku server logs
+    # trying to see puts statements in heroku server logs
     $stdout.sync = true
 end
 
@@ -133,6 +134,7 @@ def process_input (method, request)
     token = request["token"] ? request["token"] : nil
     card = request["card"] ? request["card"] : nil
 
+    # puts statements for heroku logs
     puts name
     puts email
     puts screen_name
@@ -141,7 +143,7 @@ def process_input (method, request)
     puts card
     puts "INSPECTING REQUEST:"
     puts request.inspect
-    
+
     if (name && email && screen_name && tw_userId && token && card)
         write_to_cache(card, name, email, screen_name, tw_userId, token, method)
         return true
