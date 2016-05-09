@@ -133,15 +133,10 @@ def process_input (method, request)
     token = request["token"] ? request["token"] : nil
     card = request["card"] ? request["card"] : nil
 
-    puts request
-
-    puts "#{name}"
-    puts "#{email}"
-    puts "#{screen_name}"
-    puts "#{tw_userId}"
-    puts "#{token}"
-    puts "#{card}"
-
+    puts request.body
+    puts "INSPECTING REQUEST:"
+    puts request.inspect
+    
     if (name && email && screen_name && tw_userId && token && card)
         write_to_cache(card, name, email, screen_name, tw_userId, token, method)
         return true
