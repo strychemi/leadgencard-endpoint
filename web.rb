@@ -135,6 +135,7 @@ def process_input(method, request)
     # if so, then create the card entry in our database
     if Card.create(name: name, card: card)
       puts "database saved an entry! with card_id #{card}"
+      return true
     end
   end
   # else, don't do anything and return false
