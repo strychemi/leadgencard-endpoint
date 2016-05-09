@@ -20,7 +20,7 @@ Here's minimum you need to know in few seconds (bit of Marketing 101):
 
 This sample app demonstrates how to use Twitter's lead generation "cards" to capture information on potential leads for your marketing campaign of your business. Here's what Twitter's Lead Generation Card might look like:
 
-<img src="leadgencard.png" style="width: 30%;"/>
+![lead gen card](https://github.com/strychemi/leadgencard-endpoint/raw/master/public/leadgencard.png | width)
 
 Requirements
 ------------
@@ -47,6 +47,8 @@ Go to a directory where you want to store this project.
 
 3. `bundle install` (if an error occurs run `bundle update` instead, this finds and automatically downloads the most UPDATED versions of the required Ruby dependencies specified in the Gemfile)
 
+4. `rake db:migrate` (runs migrations for your local sqlite3 DB)
+
 4. `ruby web.rb`
 
 	That's pretty much it, to get it run locally (Note: some of the features do not work locally, so it's recommended to go the Heroku-deployed route). If you want to deploy to Heroku follow the additional steps.
@@ -58,6 +60,8 @@ Go to a directory where you want to store this project.
 7. `heroku addons:create heroku-postgresql:hobby-dev` (this sets up a PostgreSQL database for your Sinatra app on Heroku)
 
 8. `git push heroku master`
+
+9. `heroku run rake db:migrate` (runs the database migrations specified under the db/migrate directory for the PostgresQl DB back-end)
 
 9. `heroku open` or type the URL of your heroku deployed app directly in your browser.
 
