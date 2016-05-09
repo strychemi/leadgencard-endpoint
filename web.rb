@@ -132,6 +132,13 @@ def process_input (method, request)
 
     puts request
 
+    puts "#{name}"
+    puts "#{email}"
+    puts "#{screen_name}"
+    puts "#{tw_userId}"
+    puts "#{token}"
+    puts "#{card}"
+
     if (name && email && screen_name && tw_userId && token && card)
         write_to_cache(card, name, email, screen_name, tw_userId, token, method)
         return true
