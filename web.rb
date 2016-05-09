@@ -134,9 +134,8 @@ def process_input(method, request)
       else
         puts "card didn't create!"
       end
-    end
     # check if lead exists in our database
-    if Lead.find_by_token(token).nil?
+    elsif Lead.find_by_token(token).nil?
       if Lead.create(name: name, email: email, screen_name: screen_name, tw_userId: tw_userId, token: token, card_id: Card.find_by_card(card).id)
         puts "lead created!"
       else
