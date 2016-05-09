@@ -133,7 +133,12 @@ def process_input (method, request)
     token = request["token"] ? request["token"] : nil
     card = request["card"] ? request["card"] : nil
 
-    puts request.body
+    puts name
+    puts email
+    puts screen_name
+    puts tw_userId
+    puts token
+    puts card
     puts "INSPECTING REQUEST:"
     puts request.inspect
     
