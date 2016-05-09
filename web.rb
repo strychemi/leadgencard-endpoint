@@ -114,18 +114,14 @@ def process_input(method, request)
   # name, email, screen_name, user_id, token, card
   # Feel free to setup custom fields via Twitter Ads and add them here
   name = request["name"] ? request["name"] : nil
-  email = request["email"] ? request["email"] : nil
-  screen_name = request["screen_name"] ? request["screen_name"] : nil
-  tw_userId = request["tw_userId"] ? request["tw_userId"] : nil
-  token = request["token"] ? request["token"] : nil
+  # email = request["email"] ? request["email"] : nil
+  # screen_name = request["screen_name"] ? request["screen_name"] : nil
+  # tw_userId = request["tw_userId"] ? request["tw_userId"] : nil
+  # token = request["token"] ? request["token"] : nil
   card = request["card"] ? request["card"] : nil
 
   # puts statements for heroku logs
   puts name
-  puts email
-  puts screen_name
-  puts tw_userId
-  puts token
   puts card
   puts "INSPECTING REQUEST:"
   puts request.inspect
@@ -136,8 +132,12 @@ def process_input(method, request)
     if Card.create(name: name, card: card)
       puts "database saved an entry! with card_id #{card}"
       return true
+    else
+      puts "database couldn't save the entry"
     end
+  else
+    puts "Either we didn't get a card_id or the Card is already in the DB"
+    # else, don't do anything and return false
+    return false
   end
-  # else, don't do anything and return false
-  return false
 end
