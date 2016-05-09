@@ -7,6 +7,7 @@ class CreateLeads < ActiveRecord::Migration
       t.string :tw_userId
       t.string :card
       t.string :token
+      t.integer :card_id
 
       t.index :email
 
