@@ -48,15 +48,15 @@ post '/endpoint' do
     end
 end
 
-# read from cache
+# read from database
 get '/card/:id' do |card_id|
 
-  data = $cache.get(card_id)
+  data = Card.find_by_card(card_id)
 
   string = ''
 
   unless data.kind_of?(Array) && data.length > 0
-      string = "None found. Note that card data is not retained for longer than 5 minutes and is lost upon service restarts."
+      string = "None found. A lead gen card with a card_id of #{} doesn't live in this sample app database!"
   end
 
   @records = data
