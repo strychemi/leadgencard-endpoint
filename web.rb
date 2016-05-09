@@ -63,7 +63,7 @@ get '/card/:id' do |card_id|
 
   string = ''
 
-  unless data.kind_of?(Array) && data.length > 0
+  if @card.nil?
     string = "None found. A lead gen card with a card_id of #{card_id} doesn't live in this sample app database!"
   end
 
@@ -77,7 +77,7 @@ delete '/card/:id' do |card_id|
   status_message = nil
   @card = Card.find_by_card(card_id)
 
-  if data.length == 0
+  if @card.nil?
     status_message = 'Card data does not exist to delete.'
   else
     if @card.destroy
@@ -131,7 +131,7 @@ def process_input(method, request)
   puts request.inspect
 
   # check if we receive a card_id and if it doesn't exist
-  if card.length > 0 && Card.find_by_card(card).empty?
+  if card.length > 0 && Card.find_by_card(card).nil?
     # if so, then create the card entry in our database
     @card = Card.build(name: name, card: card)
     if @card.save
