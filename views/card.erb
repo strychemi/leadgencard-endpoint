@@ -1,6 +1,6 @@
 <h2>Card Data for <%= card_id %></h2>
 
-<% if leads.kind_of?(Array) && @records.length > 0 %>
+<% if leads %>
 
   <div class="alert alert-success" role="alert">
     <strong>Found <%= leads.length %> card record<% if leads.length > 1 %>s<% end %>!</strong>

@@ -2,7 +2,7 @@
 
 <p><%= status_message if !status_message.nil? %></p>
 
-<% if @cards && @cards.length == 0 %>
+<% if @cards %>
   <p>Sorry! The server has no record of lead generation cards!</p>
 <% else %>
 
@@ -10,11 +10,13 @@
     <tr>
       <th>Card Name</th>
       <th>Twitter Card ID</th>
+      <th>Link to Leads</th>
     </tr>
     <% @cards.each do |card| %>
       <tr>
         <td><%= card.name %></td>
         <td><%= card.card %></td>
+        <td><a href="/card/<%= card.id %>">SEE LEADS</a></td>
       </tr>
     <% end %>
   </table>

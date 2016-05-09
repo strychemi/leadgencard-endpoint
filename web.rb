@@ -59,7 +59,7 @@ end
 # retrieve lead gen card from database and render its list of leads
 get '/card/:id' do |card_id|
 
-  @card = Card.find_by_card(card_id)
+  @card = Card.find_by_id(card_id)
 
   string = ''
 
@@ -75,7 +75,7 @@ end
 # delete card
 delete '/card/:id' do |card_id|
   status_message = nil
-  @card = Card.find_by_card(card_id)
+  @card = Card.find_by_id(card_id)
 
   if @card.nil?
     status_message = 'Card data does not exist to delete.'
