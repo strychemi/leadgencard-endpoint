@@ -20,7 +20,7 @@ Here's minimum you need to know in few seconds (bit of Marketing 101):
 
 This sample app demonstrates how to use Twitter's lead generation "cards" to capture information on potential leads for your marketing campaign of your business. Here's what Twitter's Lead Generation Card might look like:
 
-![lead gen card](https://github.com/strychemi/leadgencard-endpoint/raw/master/public/leadgencard.png)
+<img src="leadgencard.png" style="width: 30%;"/>
 
 Requirements
 ------------
