@@ -3,7 +3,7 @@
 <% if leads %>
 
   <div class="alert alert-success" role="alert">
-    <strong>Found <%= leads.length %> card record<% if leads.length > 1 %>s<% end %>!</strong>
+    <strong>Found <%= leads.length %> lead record<% if leads.length > 1 %>s<% end %>!</strong>
   </div>
 
   <table class="table table-condensed table-hover">
@@ -13,7 +13,7 @@
         <th>Email</th>
         <th>Screen Name</th>
         <th>Twitter User Id</th>
-        <th>Card</th>
+        <th>Card ID</th>
         <th>Token</th>
       </tr>
     </thead>
@@ -24,7 +24,7 @@
         <td><%= lead.email %></td>
         <td><%= lead.screen_name %></td>
         <td><%= lead.tw_userId %></td>
-        <td><%= lead.card %></td>
+        <td><%= lead.card.card %></td>
         <td><%= lead.token %></td>
       </tr>
       <% end %>

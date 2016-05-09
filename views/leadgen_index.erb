@@ -3,9 +3,6 @@
 <p><%= status_message if !status_message.nil? %></p>
 
 <% if @cards %>
-  <p>Sorry! The server has no record of lead generation cards!</p>
-<% else %>
-
   <table class="table table-hover">
     <tr>
       <th>Card Name</th>
@@ -16,8 +13,11 @@
       <tr>
         <td><%= card.name %></td>
         <td><%= card.card %></td>
-        <td><a href="/card/<%= card.id %>">SEE LEADS</a></td>
+        <td><a href="/card/<%= card.card %>">SEE LEADS</a></td>
       </tr>
     <% end %>
   </table>
+<% else %>
+
+  <p>Sorry! The server has no record of lead generation cards!</p>
 <% end %>

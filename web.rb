@@ -3,10 +3,20 @@ require 'sinatra/activerecord'
 require './config/environments'
 require './models/lead'
 require './models/card'
+require 'tilt/erb'
 
 configure do
   # trying to see puts statements in heroku server logs
   $stdout.sync = true
+end
+
+# this is needed to fix weird database pooling problem with Active Record
+# check: https://github.com/padrino/padrino-framework/issues/1767
+# without this code, the app crashes after 5 Active Record queries are made lol
+# locally and in production
+after do
+  logger.info "clearing active connection for this thread"
+  ActiveRecord::Base.connection.close
 end
 
 # Routes on the navbar
@@ -29,9 +39,9 @@ get '/leadgen-index' do
 end
 
 get '/analytics' do
-  @card_count = Card.all.count
-  @lead_count = Lead.all.count
-  @lead_per_card = @lead_count / @card_count
+  @card_count = Card.count
+  @lead_count = Lead.count
+  @lead_per_card = @card_count > 0 ? @lead_count / @card_count : 0;
   erb :analytics, locals: { card_count: @card_count, lead_count: @lead_count, lead_per_card: @lead_per_card }
 end
 
@@ -59,14 +69,14 @@ end
 # retrieve lead gen card from database and render its list of leads
 get '/card/:id' do |card_id|
 
-  @card = Card.find_by_id(card_id)
-
+  @card = Card.find_by_card(card_id)
   string = ''
 
   if @card.nil?
     string = "None found. A lead gen card with a card_id of #{card_id} doesn't live in this sample app database!"
   else
     leads = @card.leads
+    card_id = @card.card
   end
 
   erb :card, :locals => { leads: leads, :card_id => card_id, :string => string }, :layout => :layout
@@ -75,7 +85,7 @@ end
 # delete card
 delete '/card/:id' do |card_id|
   status_message = nil
-  @card = Card.find_by_id(card_id)
+  @card = Card.find_by_card(card_id)
 
   if @card.nil?
     status_message = 'Card data does not exist to delete.'
@@ -135,11 +145,12 @@ def process_input(method, request)
         puts "card didn't create!"
       end
     # check if lead exists in our database
-    elsif Lead.find_by_token(token).nil?
-      if Lead.create(name: name, email: email, screen_name: screen_name, tw_userId: tw_userId, token: token, card_id: Card.find_by_card(card).id)
-        puts "lead created!"
-      else
-        puts "lead didn't create!"
+      if Lead.find_by_token(token).nil?
+        if Lead.create(name: name, email: email, screen_name: screen_name, tw_userId: tw_userId, token: token, card_id: Card.find_by_card(card).id)
+          puts "lead created!"
+        else
+          puts "lead didn't create!"
+        end
       end
     end
     return true

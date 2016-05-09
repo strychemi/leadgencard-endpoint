@@ -1,3 +1,7 @@
+configure :development, :test do
+  set :database, 'sqlite3:development.db'
+end
+
 # Sets database to postgreSQL
 configure :production do
   # database connection
