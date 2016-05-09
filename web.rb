@@ -129,11 +129,19 @@ def process_input(method, request)
   if (name && email && screen_name && tw_userId && token && card)
     # if so, check if the card exists in our database
     if Card.find_by_card(card).nil?
-      Card.create(name: name, card: card);
+      if Card.create(name: name, card: card)
+        puts "card created!"
+      else
+        puts "card didn't create!"
+      end
     end
     # check if lead exists in our database
     if Lead.find_by_token(token).nil?
-      Lead.create(name: name, email: email, screen_name: screen_name, tw_userId: tw_userId, token: token, card_id: Card.find_by_card(card).id)
+      if Lead.create(name: name, email: email, screen_name: screen_name, tw_userId: tw_userId, token: token, card_id: Card.find_by_card(card).id)
+        puts "lead created!"
+      else
+        puts "lead didn't create!"
+      end
     end
     return true
   else
