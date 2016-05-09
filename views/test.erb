@@ -1,0 +1,37 @@
+<h4>Test your server's lead capture endpoint </h4>
+
+<p>Click on
+  <a href="https://<%= request.host %>:<%= request.port %>/endpoint?name=Ryan+Choi&screen_name=rchoi&tw_userId=12345612&email=test@test.com&token=SOME_TOKEN&card=12345" target="_blank">this link</a>, which submits a lead capture to your server via a GET request. You should confirm you get an `OK` response.
+</p>
+
+<p>If you look at the URL, you will see it expects the
+  <a href="https://dev.twitter.com/ads/reference/get/accounts/%3Aaccount_id/cards/lead_gen" target="_blank">default parameters</a> below:
+<p>
+  
+<ul>
+  <li><i>name</i>
+  <li><i>screen_name</i>
+  <li><i>tw_userId</i>
+  <li><i>email</i>
+  <li><i>token</i>
+  <li><i>card</i>
+</ul>
+
+<p>Then come back here and enter the card id <strong>12345</strong> below.</p>
+
+<h4>How it works</h4>
+
+<p>After you create a Lead Gen Card with a <code>submit_url</code>, newly captured leads on Twitter will be sent to
+your server via the URL and either GET or POST payload that contains the following parameters (formatted in JSON for readability):
+</p>
+
+<pre>
+{
+"name": "Ryan Choi",
+"email": "test@test.com",
+"screen_name": "rchoi",
+"tw_userId": 54256387,
+"card": "16po2",
+"token": "SOME_TOKEN"
+}
+</pre>

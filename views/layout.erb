@@ -7,31 +7,52 @@
   </head>
   <body>
     <div class="container">
-    <%= yield %>
+      <h2>Sample Lead Generation Card Endpoint</h2>
 
-<hr>
-<div class="bg-info" style="padding-left: 10px; padding-right: 10px; padding-top: 5px; padding-bottom: 5px;">
-    <p>Want to lookup <% if defined?(card_id) %>another<% else %>a<% end %> card on this server?</p>
-<script>
-function process()
-{
-var url="/card/" + document.getElementById("cardid").value;
-location.href=url;
-return false;
-}
-</script>
-<form role="form" class="form-inline" onSubmit="return process();">
-<div class="form-group">
-    <label for="cardid">Card ID</label>
-    <input type="text" class="form-control" id="cardid" placeholder="abc123">
-</div>
-<button type="submit" class="btn btn-primary">Lookup</button>
-</form>
-</div>
-<hr>
-    <div class="footer">
-<p class="text-muted"><small>This is a basic lead generation endpoint <a href="/">demo</a> created by <a href="https://twitter.com/jaakkosf" target="_blank">@jaakkosf</a>. from the <a href="https://twitter.com/TwitterDev" target="_blank">@TwitterDev</a> team. It is written in Ruby, using <a href="http://www.sinatrarb.com/" target="_blank">Sinatra</a> and <a href="https://github.com/mperham/dalli" target="_blank">dalli</a>. Basic CSS is provided by <a href="http://getbootstrap.com/" target="_blank">Bootstrap</a>. The source code for this project can be found at <a href="https://github.com/twitterdev/leadgencard-endpoint" target="_blank">github/twitterdev/leadgencard-endpoint</a>.</small></p>
-</div>
-</div>
+      <nav class="navbar navbar-default">
+        <ul class="nav navbar-nav">
+          <li><a href="/">Home</a></li>
+          <li><a href="/test">Test Your Server</a></li>
+          <li><a href="/create-info">Create a Lead Gen Card</a></li>
+          <li><a href="/leadgen-index">Card Index</a></li>
+        </ul>
+      </nav>
+
+      <%= yield %>
+
+      <hr>
+
+      <div class="bg-info" style="padding-left: 10px; padding-right: 10px; padding-top: 5px; padding-bottom: 5px;">
+        <p>Want to lookup <% if defined?(card_id) %>another<% else %>a<% end %> card on this server?</p>
+        <script>
+          function process() {
+            var url="/card/" + document.getElementById("cardid").value;
+            location.href=url;
+            return false;
+          }
+        </script>
+        <form role="form" class="form-inline" onSubmit="return process();">
+          <div class="form-group">
+            <label for="cardid">Card ID</label>
+            <input type="text" class="form-control" id="cardid" placeholder="abc123">
+          </div>
+          <button type="submit" class="btn btn-primary">Lookup</button>
+        </form>
+      </div>
+
+      <hr>
+
+      <div class="footer">
+        <p class="text-muted"><small>This is a basic lead generation endpoint
+          <a href="/">demo</a> created by
+          <a href="https://twitter.com/jaakkosf" target="_blank">@jaakkosf</a>. from the
+          <a href="https://twitter.com/TwitterDev" target="_blank">@TwitterDev</a> team. This app extends the original project with data-persistence via PostgreSQL written by <a href="https://twitter.com/strychemi">@strychemi</a>. It is written in Ruby, using
+          <a href="http://www.sinatrarb.com/" target="_blank">Sinatra</a> and
+          <a href="https://github.com/janko-m/sinatra-activerecord" target="_blank">Active Record</a>. Basic CSS is provided by
+          <a href="http://getbootstrap.com/" target="_blank">Bootstrap</a>. The source code for this project can be found at
+          <a href="https://github.com/strychemi/leadgencard-endpoint" target="_blank">github/strychemi/leadgencard-endpoint</a>.</small>
+        </p>
+      </div>
+  </div>
   </body>
 </html>

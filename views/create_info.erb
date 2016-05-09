@@ -1,0 +1,41 @@
+<h4>Create a Card: Via the UI</h4>
+
+<p><strong>WARNING:</strong> For developers doing this for the first time there is no "Creatives" Tab. The only Tab that exists is the "Analytics" tab. This means you have to go through a "first-time" set-up where you have to put in various information as well as your credit card/billing info. Click on the brand image on the top-right to get started. <strong>You cannot create cards or do anything in the Twitter Ads UI until this is completed!</strong></p>
+
+<p>To create a Card via the UI, visit <a href="https://ads.twitter.com" target="_blank">https://ads.twitter.com</a> and click on the "Creatives" link at the top. You will then see the below
+screen that will walk you through creating a Lead Gen Card. Be sure to populate the <code>Submit URL</code> as <strong>https://<%= request.host %>/endpoint</strong> for Twitter to submit leads to your server.</p>
+
+<p><strong>WARNING: For the purposes of this sample code, make sure you set the HTTP Request Method to POST and not GET! Otherwise this app will not receive any useful data!</strong></p>
+
+<p><strong>NOTE: If you get stuck uploading an image to your lead gen card via the UI, make sure to turn off ALL ad-blockers otherwise the image will not successfully be uploaded properly!</strong></p>
+
+<p>Lastly, ensure that you  tweet the resulting Card URL for your first Lead Gen Card in a tweet.</p>
+
+<div>
+<h4>Create a Card: Via the API</h4>
+</div>
+<p>Below is a <a href="https://github.com/twitter/twurl" target="_blank">twurl</a> example to create a Lead Gen Card:</p>
+<pre>
+twurl -H ads-api.twitter.com -X POST -d "account_id=MY_ACCOUNT_ID&name=Lead Gen Card Test&image_media_id=MY_MEDIA_ID&title=Test Title&cta=Submit Now&fallback_url=http://dev.twitter.com&privacy_policy_url=http://dev.twitter.com&submit_method=POST&submit_url=https://<%= request.host %>/endpoint" "/0/accounts/MY_ACCOUNT_ID/cards/lead_gen"
+</pre>
+<p>Two things to note in the twurl example above:</p>
+<ul>
+  <li>For <i>MY_ACCOUNT_ID</i>, use the 5-character string in the URL after logging into ads.twitter.com.</li>
+  <li>For <i>MY_MEDIA_ID</i>, read how to upload media on our
+    <a href="https://dev.twitter.com/rest/public/uploading-media">Guide to Uploading Media</a>. (As a shortcut, you can tweet out an image in the UI and query back the tweet's media.id_str.)</li>
+</ul>
+<p>The response you will receive will look like the following:</p>
+<pre>
+{"data_type":"card","data":{"name":"Lead Gen Card Test","fallback_url":"http:\/\/dev.twitter.com","image":"https:\/\/pbs.twimg.com\/media-preview\/snf:666848265044799488\/47q4tEdq.jpg","privacy_policy_url":"http:\/\/dev.twitter.com","preview_url":"https:\/\/cards.twitter.com\/cards\/MY_ACCOUNT_ID\/16ppl","submit_url":"https:\/\/tranquil-shelf-2540.herokuapp.com\/endpoint","id":"16ppl","account_id":"MY_ACCOUNT_ID","cta":"Submit Now","created_at":"2015-11-18T06:49:59Z","submit_method":"POST","title":"Test Title","updated_at":"2015-11-18T06:49:59Z","deleted":false,"card_type":"LEAD_GENERATION"},"request":{"params":{"name":"Lead Gen Card Test","fallback_url":"http:\/\/dev.twitter.com","image":"https:\/\/pbs.twimg.com\/media-preview\/snf:666848265044799488\/47q4tEdq.jpg","privacy_policy_url":"http:\/\/dev.twitter.com","submit_url":"https:\/\/tranquil-shelf-2540.herokuapp.com\/endpoint","account_id":"MY_ACCOUNT_ID","cta":"Submit Now","submit_method":"POST","title":"Test Title","card_type":"LEAD_GENERATION"}}}
+</pre>
+<p>Most importantly, the <code>preview_url</code> is the URL of the Lead Gen Card.</p>
+
+<div>
+  <h4>Tweet the Card</h4>
+</div>
+
+<p>Once you have created your Card (either through the UI or the API), you should have a resulting Card URL. You can then
+tweet this URL directly, and the Card will hydrate upon view of the Card on both web and mobile. The tweet with Card will look
+like the below:</p>
+
+<img src="screenshot.png">

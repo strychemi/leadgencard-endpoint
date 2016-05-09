@@ -1,0 +1,9 @@
+<h4>Lead Generation Card Index</h4>
+
+<% if @cards.length == 0 %>
+  <p>Sorry! The server has no record of lead generation cards!</p>
+<% else %>
+  <% @cards.each do |card| %>
+  <p><%= card.card %></p>
+  <% end %>
+<% end %>

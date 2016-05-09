@@ -15,6 +15,19 @@ get '/' do
   erb :index
 end
 
+get '/test' do
+  erb :test
+end
+
+get '/create-info' do
+  erb :create_info
+end
+
+get '/leadgen-index' do
+  @cards = Card.all
+  erb :leadgen_index, locals: { cards: @cards }
+end
+
 get '/endpoint' do
   rc = process_input("GET", request)
 
