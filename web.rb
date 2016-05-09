@@ -127,16 +127,14 @@ def process_input(method, request)
   puts request.inspect
 
   # check if we receive a card_id and if it doesn't exist
-  if card.length > 0 && Card.find_by_card(card).nil?
+  if card.length > 0
     # if so, then create the card entry in our database
-    new_card = Card.new
-    new_card.name = name
-    new_card.card = card
-    if new_card.save
-      puts "database saved an entry! with card_id #{card}"
+    if Card.find_or_create_by(card: card)
+      puts "database found/saved an entry! with card_id #{card}"
       return true
     else
-      puts "database couldn't save the entry"
+      puts "database couldn't find/save the entry"
+      return false
     end
   else
     puts "Either we didn't get a card_id or the Card is already in the DB"
