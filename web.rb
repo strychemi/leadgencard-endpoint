@@ -68,18 +68,15 @@ end
 
 # retrieve lead gen card from database and render its list of leads
 get '/card/:id' do |card_id|
-
+  status_message = nil
   @card = Card.find_by_card(card_id)
-  string = ''
 
-  if @card.nil?
-    string = "None found. A lead gen card with a card_id of #{card_id} doesn't live in this sample app database!"
-  else
+  if !@card.nil?
     leads = @card.leads
     card_id = @card.card
   end
 
-  erb :card, :locals => { leads: leads, :card_id => card_id, :string => string }, :layout => :layout
+  erb :card, :locals => { leads: leads, card_id: card_id, status_message: status_message }, layout: :layout
 end
 
 # delete card
@@ -97,6 +94,26 @@ delete '/card/:id' do |card_id|
     end
     @cards = Card.all
     erb :leadgen_index, locals: { cards: @cards, status_message: status_message }
+  end
+
+end
+
+# delete lead
+delete '/lead/:id' do |lead_id|
+  status_message = nil
+  @lead = Lead.find_by_id(lead_id)
+
+  if @lead.nil?
+    status_message = 'Lead data does not exist to delete.'
+  else
+    if @lead.destroy
+      status_message = 'Lead Successfully Deleted!'
+    else
+      status_message = 'Deletion of Lead Failed!'
+    end
+    leads = @lead.card.leads
+    card_id = @lead.card.card
+    erb :card, :locals => { leads: leads, card_id: card_id, status_message: status_message }, layout: :layout
   end
 
 end

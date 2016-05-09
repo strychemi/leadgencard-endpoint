@@ -1,6 +1,7 @@
 <h4>Lead Generation Card Index</h4>
-
-<p><%= status_message if !status_message.nil? %></p>
+<% if !status_message.nil? %>
+  <div class="alert alert-info"><%= status_message %></div>
+<% end %>
 
 <% if @cards %>
   <table class="table table-hover">
@@ -8,12 +9,19 @@
       <th>Card Name</th>
       <th>Twitter Card ID</th>
       <th>Link to Leads</th>
+      <th>Delete Card?</th>
     </tr>
     <% @cards.each do |card| %>
       <tr>
         <td><%= card.name %></td>
         <td><%= card.card %></td>
         <td><a href="/card/<%= card.card %>">SEE LEADS</a></td>
+        <td>
+          <form action="/card/<%= card.card %>" method="post">
+            <input name="_method" type="hidden" value="delete">
+            <input type="submit" value="Delete" class="btn btn-danger">
+          </form>
+        </td>
       </tr>
     <% end %>
   </table>

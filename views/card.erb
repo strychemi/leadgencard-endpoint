@@ -1,10 +1,14 @@
-<h2>Card Data for <%= card_id %></h2>
+<h4>Leads for Card ID:<%= card_id %></h4>
 
 <% if leads %>
 
   <div class="alert alert-success" role="alert">
     <strong>Found <%= leads.length %> lead record<% if leads.length > 1 %>s<% end %>!</strong>
   </div>
+
+  <% if !status_message.nil? %>
+    <div class="alert alert-info"><%= status_message %></div>
+  <% end %>
 
   <table class="table table-condensed table-hover">
     <thead>
@@ -15,6 +19,7 @@
         <th>Twitter User Id</th>
         <th>Card ID</th>
         <th>Token</th>
+        <th>Delete?</th>
       </tr>
     </thead>
     <tbody>
@@ -26,6 +31,12 @@
         <td><%= lead.tw_userId %></td>
         <td><%= lead.card.card %></td>
         <td><%= lead.token %></td>
+        <td>
+          <form action="/lead/<%= lead.id %>" method="post">
+            <input name="_method" type="hidden" value="delete">
+            <input type="submit" value="Delete" class="btn btn-danger">
+          </form>
+        </td>
       </tr>
       <% end %>
     </tbody>
@@ -34,7 +45,7 @@
 <% else %>
 
   <div class="alert alert-danger" role="alert">
-    <strong>No card records found</strong>. Note that card data is not retained for longer than 5 minutes and can be lost upon service restarts.
+    <strong>No card records found</strong>.
   </div>
 
 <% end %>

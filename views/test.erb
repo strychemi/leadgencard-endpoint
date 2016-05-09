@@ -4,10 +4,17 @@
   <a href="https://<%= request.host %>:<%= request.port %>/endpoint?name=Ryan+Choi&screen_name=rchoi&tw_userId=12345612&email=test@test.com&token=SOME_TOKEN&card=12345" target="_blank">this link</a>, which submits a lead capture to your server via a GET request. You should confirm you get an `OK` response.
 </p>
 
+<p><strong>WARNING:</strong> If you are running this LOCALLY, an error will appear in the new tab that opens up. Take out the "s" from the "https" part of the URL and run the new URL in the browser. Otherwise this link works fine in production.
+</p>
+
+<p>
+  This is simulates what would happen when a lead is generated via Twitter's lead generation card. Assuming the lead generation card is set up correctly, Twitter's Ad API will send a GET or POST request to this app when a lead is generated in real-time.
+</p>
+
 <p>If you look at the URL, you will see it expects the
   <a href="https://dev.twitter.com/ads/reference/get/accounts/%3Aaccount_id/cards/lead_gen" target="_blank">default parameters</a> below:
 <p>
-  
+
 <ul>
   <li><i>name</i>
   <li><i>screen_name</i>
