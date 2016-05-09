@@ -13,11 +13,11 @@
 <div class="tab-content">
 
   <div class="tab-pane active" id="home">
-  
+
 <div>
 	<br>
     <h4>Welcome to the Lead Gen Card endpoint sample.</h4>
-    <p>This is a basic demo of an endpoint accepting leads from Twitter <a href="https://support.twitter.com/articles/20170389">Lead Generation Cards</a>.</p>
+    <p>This is a basic demo of an endpoint accepting leads from Twitter <a href="https://support.twitter.com/articles/20170389" target="_blank">Lead Generation Cards</a>.</p>
 </div>
 
 <p>Now that you have the server running, there are a number of things you can do:</p>
@@ -30,20 +30,20 @@
 
 <p>To help you better understand the overall flow, we have a <a href="https://twitter.com/jaakkosf/status/486012969273139201">public tweet + Card</a>
 you can use to submit a lead. (You'll have to be logged into Twitter.com first.) </p>
-<p>Once you have submitted your information, you can then visit 
+<p>Once you have submitted your information, you can then visit
 <a href="https://limitless-ocean-4365.herokuapp.com/card/176b">our example test server</a> and enter Card id <strong>176b</strong> to
 confirm your lead information was sent from Twitter to the example test server.</p>
 
   </div>
 
   <div class="tab-pane" id="test">
-  
+
 <div>
 	<br>
 	<h4>Test your server's lead capture endpoint </h4>
 </div>
-<p>Click on <a href="https://<%= request.host %>:<%= request.port %>/endpoint?name=Ryan+Choi&screen_name=rchoi&tw_userId=12345612&email=test@test.com&token=SOME_TOKEN&card=12345" target="_target">this link</a>, which submits a lead capture to your server via a GET request. You should confirm you get an `OK` response.</p>
-<p>If you look at the URL, you will see it expects the <a href="https://dev.twitter.com/ads/reference/get/accounts/%3Aaccount_id/cards/lead_gen" target="_target">default parameters</a> below:<p>
+<p>Click on <a href="https://<%= request.host %>:<%= request.port %>/endpoint?name=Ryan+Choi&screen_name=rchoi&tw_userId=12345612&email=test@test.com&token=SOME_TOKEN&card=12345" target="_blank">this link</a>, which submits a lead capture to your server via a GET request. You should confirm you get an `OK` response.</p>
+<p>If you look at the URL, you will see it expects the <a href="https://dev.twitter.com/ads/reference/get/accounts/%3Aaccount_id/cards/lead_gen" target="_blank">default parameters</a> below:<p>
 <ul>
 <li><i>name</i>
 <li><i>screen_name</i>
@@ -55,7 +55,7 @@ confirm your lead information was sent from Twitter to the example test server.<
 <p>Then come back here and enter the card id <strong>12345</strong> below.</p>
 
 	<h4>How it works</h4>
-	
+
 <p>After you create a Lead Gen Card with a <code>submit_url</code>, newly captured leads on Twitter will be sent to
 your server via the URL and either GET or POST payload that contains the following parameters (formatted in JSON for readability):
 </p>
@@ -74,18 +74,18 @@ your server via the URL and either GET or POST payload that contains the followi
   </div>
 
   <div class="tab-pane" id="card">
-  
+
 <div>
 	<h4>Create a Card: Via the UI</h4>
 </div>
-<p>To create a Card via the UI, visit <a href="https://ads.twitter.com" target="_target">https://ads.twitter.com</a> and click on the "Creatives" link at the top. You will then see the below
+<p>To create a Card via the UI, visit <a href="https://ads.twitter.com" target="_blank">https://ads.twitter.com</a> and click on the "Creatives" link at the top. You will then see the below
 screen that will walk you through creating a Lead Gen Card. Be sure to populate the <code>Submit URL</code> as <strong>https://<%= request.host %>/endpoint</strong> for Twitter to submit leads to your server.</p>
 <p>Lastly, ensure that you  tweet the resulting Card URL for your first Lead Gen Card in a tweet.</p>
 
 <div>
 	<h4>Create a Card: Via the API</h4>
 </div>
-<p>Below is a <a href="https://github.com/twitter/twurl" target="_target">twurl</a> example to create a Lead Gen Card:</p>
+<p>Below is a <a href="https://github.com/twitter/twurl" target="_blank">twurl</a> example to create a Lead Gen Card:</p>
 <pre>
 twurl -H ads-api.twitter.com -X POST -d "account_id=MY_ACCOUNT_ID&name=Lead Gen Card Test&image_media_id=MY_MEDIA_ID&title=Test Title&cta=Submit Now&fallback_url=http://dev.twitter.com&privacy_policy_url=http://dev.twitter.com&submit_method=POST&submit_url=https://<%= request.host %>/endpoint" "/0/accounts/MY_ACCOUNT_ID/cards/lead_gen"
 </pre>
@@ -97,18 +97,18 @@ twurl -H ads-api.twitter.com -X POST -d "account_id=MY_ACCOUNT_ID&name=Lead Gen 
 <p>The response you will receive will look like the following:</p>
 <pre>
 {"data_type":"card","data":{"name":"Lead Gen Card Test","fallback_url":"http:\/\/dev.twitter.com","image":"https:\/\/pbs.twimg.com\/media-preview\/snf:666848265044799488\/47q4tEdq.jpg","privacy_policy_url":"http:\/\/dev.twitter.com","preview_url":"https:\/\/cards.twitter.com\/cards\/MY_ACCOUNT_ID\/16ppl","submit_url":"https:\/\/tranquil-shelf-2540.herokuapp.com\/endpoint","id":"16ppl","account_id":"MY_ACCOUNT_ID","cta":"Submit Now","created_at":"2015-11-18T06:49:59Z","submit_method":"POST","title":"Test Title","updated_at":"2015-11-18T06:49:59Z","deleted":false,"card_type":"LEAD_GENERATION"},"request":{"params":{"name":"Lead Gen Card Test","fallback_url":"http:\/\/dev.twitter.com","image":"https:\/\/pbs.twimg.com\/media-preview\/snf:666848265044799488\/47q4tEdq.jpg","privacy_policy_url":"http:\/\/dev.twitter.com","submit_url":"https:\/\/tranquil-shelf-2540.herokuapp.com\/endpoint","account_id":"MY_ACCOUNT_ID","cta":"Submit Now","submit_method":"POST","title":"Test Title","card_type":"LEAD_GENERATION"}}}
-</pre> 
+</pre>
 <p>Most importantly, the <code>preview_url</code> is the URL of the Lead Gen Card.</p>
 
 <div>
 	<h4>Tweet the Card</h4>
 </div>
 
-<p>Once you have created your Card (either through the UI or the API), you should have a resulting Card URL. You can then 
-tweet this URL directly, and the Card will hydrate upon view of the Card on both web and mobile. The tweet with Card will look 
+<p>Once you have created your Card (either through the UI or the API), you should have a resulting Card URL. You can then
+tweet this URL directly, and the Card will hydrate upon view of the Card on both web and mobile. The tweet with Card will look
 like the below:</p>
 
 <img src="screenshot.png">
 </div>
 
-</div>  
+</div>

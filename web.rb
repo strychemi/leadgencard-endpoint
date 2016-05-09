@@ -1,5 +1,9 @@
 require 'sinatra'
 
+# required configure block for Memcached Cloud for the server cache
+# Memcached is an in-memory key-value store for small chunks of arbitrary data
+# (strings, objects) from results of database calls, API calls, or page rendering
+# check out https://devcenter.heroku.com/articles/memcachedcloud for more info
 configure do
     require 'dalli'
 
@@ -8,11 +12,13 @@ configure do
       username = ENV["MEMCACHEDCLOUD_USERNAME"]
       password = ENV["MEMCACHEDCLOUD_PASSWORD"]
     else
-        servers = ['localhost:11211']
-        username = nil
-        password = nil
+      servers = ['localhost:11211']
+      username = nil
+      password = nil
     end
-
+    # hooks up memcached server to heroku or locally based on ENV vars using
+    # via the Dalli Gem (https://github.com/petergoldstein/dalli)
+    # which is a convenient Ruby client for accessing memcached servers
     $cache = Dalli::Client.new(servers, :username => username, :password => password, :expires_in => 300)
 end
 
@@ -27,7 +33,7 @@ get '/endpoint' do
 
   if (rc == true)
     erb :data_recd_200, :layout => nil
-  else 
+  else
     426
   end
 end
@@ -35,7 +41,7 @@ end
 post '/endpoint' do
     rc = process_input("POST", request)
 
-    if (rc == true) 
+    if (rc == true)
       erb :data_recd_200, :layout => nil
     else
       426
@@ -65,7 +71,7 @@ get '/delete/:id' do |card_id|
   if data.nil?
     string = 'Card data does not exist to delete.'
   else
-    $cache.delete(card_id) 
+    $cache.delete(card_id)
 
     erb :card, :locals => { :card_id => card_id, :string => string }, :layout => :layout
   end
@@ -120,17 +126,16 @@ def process_input (method, request)
     name = request["name"] ? request["name"] : nil
     email = request["email"] ? request["email"] : nil
     screen_name = request["screen_name"] ? request["screen_name"] : nil
-    tw_userId = request["tw_userId"] ? request["tw_userId"] : nil 
+    tw_userId = request["tw_userId"] ? request["tw_userId"] : nil
     token = request["token"] ? request["token"] : nil
     card = request["card"] ? request["card"] : nil
+
+    puts request
 
     if (name && email && screen_name && tw_userId && token && card)
         write_to_cache(card, name, email, screen_name, tw_userId, token, method)
         return true
-    else 
+    else
         return false
     end
 end
-
-
-
