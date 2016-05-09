@@ -20,6 +20,9 @@ configure do
     # via the Dalli Gem (https://github.com/petergoldstein/dalli)
     # which is a convenient Ruby client for accessing memcached servers
     $cache = Dalli::Client.new(servers, :username => username, :password => password, :expires_in => 300)
+
+    #trying to see puts statements in heroku server logs
+    $stdout.sync = true
 end
 
 # Inbound routes
