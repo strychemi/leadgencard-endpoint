@@ -1,4 +1,5 @@
 require 'sinatra'
+require 'sinatra/activerecord'
 require './config/environments'
 require './models/lead'
 # required configure block for Memcached Cloud for the server cache
