@@ -9,8 +9,7 @@ configure do
   $stdout.sync = true
 end
 
-# Inbound routes
-
+# Routes on the navbar
 get '/' do
   erb :index
 end
@@ -24,10 +23,19 @@ get '/create-info' do
 end
 
 get '/leadgen-index' do
+  status_message = nil
   @cards = Card.all
-  erb :leadgen_index, locals: { cards: @cards }
+  erb :leadgen_index, locals: { cards: @cards, status_message: status_message }
 end
 
+get '/analytics' do
+  @card_count = Card.all.count
+  @lead_count = Lead.all.count
+  @lead_per_card = @lead_count / @card_count
+  erb :analytics, locals: { card_count: @card_count, lead_count: @lead_count, lead_per_card: @lead_per_card }
+end
+
+# routes that handle calls from Twitter Ads API
 get '/endpoint' do
   rc = process_input("GET", request)
 
@@ -48,32 +56,37 @@ post '/endpoint' do
     end
 end
 
-# read from database
+# retrieve lead gen card from database and render its list of leads
 get '/card/:id' do |card_id|
 
-  data = Card.find_by_card(card_id)
+  @card = Card.find_by_card(card_id)
 
   string = ''
 
   unless data.kind_of?(Array) && data.length > 0
-      string = "None found. A lead gen card with a card_id of #{} doesn't live in this sample app database!"
+    string = "None found. A lead gen card with a card_id of #{card_id} doesn't live in this sample app database!"
   end
 
-  @records = data
+  leads = @card.leads
 
-  erb :card, :locals => { :card_id => card_id, :string => string }, :layout => :layout
+  erb :card, :locals => { leads: leads, :card_id => card_id, :string => string }, :layout => :layout
 end
 
 # delete card
-get '/delete/:id' do |card_id|
-  data = $cache.get(card_id)
+delete '/card/:id' do |card_id|
+  status_message = nil
+  @card = Card.find_by_card(card_id)
 
-  if data.nil?
-    string = 'Card data does not exist to delete.'
+  if data.length == 0
+    status_message = 'Card data does not exist to delete.'
   else
-    $cache.delete(card_id)
-
-    erb :card, :locals => { :card_id => card_id, :string => string }, :layout => :layout
+    if @card.destroy
+      status_message = 'Card Successfully Deleted!'
+    else
+      status_message = 'Deletion of Card Failed!'
+    end
+    @cards = Card.all
+    erb :leadgen_index, locals: { cards: @cards, status_message: status_message }
   end
 
 end
@@ -96,48 +109,33 @@ error 426 do
   'Bad Request, required lead generation parameters missing'
 end
 
-# write to cache
-def write_to_cache(card_id, name, email, screen_name, tw_userId, token, method)
+def process_input(method, request)
+  # we always expect these fields (from Twitter Ads API)
+  # name, email, screen_name, user_id, token, card
+  # Feel free to setup custom fields via Twitter Ads and add them here
+  name = request["name"] ? request["name"] : nil
+  email = request["email"] ? request["email"] : nil
+  screen_name = request["screen_name"] ? request["screen_name"] : nil
+  tw_userId = request["tw_userId"] ? request["tw_userId"] : nil
+  token = request["token"] ? request["token"] : nil
+  card = request["card"] ? request["card"] : nil
 
-   data = $cache.get(card_id)
-   unless data.kind_of?(Array)
-       data = []
-   end
+  # puts statements for heroku logs
+  puts name
+  puts email
+  puts screen_name
+  puts tw_userId
+  puts token
+  puts card
+  puts "INSPECTING REQUEST:"
+  puts request.inspect
 
-   # this is a demo app, we have no need to keep the email we get, so let's just record if we think we got one
-   email_found = (email.length > 5) ? "Yes" : "No"
-   card = {"name" => name, "email" => email_found, "screen_name" => screen_name, "tw_userId" => tw_userId, "token" => token, "method" => method}
-
-   data.push(card)
-
-   $cache.set(card_id, data)
-end
-
-def process_input (method, request)
-    # we always expect these fields
-    # name, email, screen_name, user_id, token, card
-    # TODO we could get custom fields, store those too
-    name = request["name"] ? request["name"] : nil
-    email = request["email"] ? request["email"] : nil
-    screen_name = request["screen_name"] ? request["screen_name"] : nil
-    tw_userId = request["tw_userId"] ? request["tw_userId"] : nil
-    token = request["token"] ? request["token"] : nil
-    card = request["card"] ? request["card"] : nil
-
-    # puts statements for heroku logs
-    puts name
-    puts email
-    puts screen_name
-    puts tw_userId
-    puts token
-    puts card
-    puts "INSPECTING REQUEST:"
-    puts request.inspect
-
-    if (name && email && screen_name && tw_userId && token && card)
-        write_to_cache(card, name, email, screen_name, tw_userId, token, method)
-        return true
-    else
-        return false
-    end
+  # check if we receive a card_id and if it doesn't exist
+  if card.length > 0 && Card.find_by_card(card).empty?
+    # if so, then create the card entry in our database
+    @card = Card.build(name: name, card: card)
+    return true if @card.save
+  end
+  # else, don't do anything and return false
+  return false
 end

@@ -1,9 +1,21 @@
 <h4>Lead Generation Card Index</h4>
 
+<p><%= status_message if !status_message.nil? %></p>
+
 <% if @cards.length == 0 %>
   <p>Sorry! The server has no record of lead generation cards!</p>
 <% else %>
-  <% @cards.each do |card| %>
-  <p><%= card.card %></p>
-  <% end %>
+
+  <table class="table table-hover">
+    <tr>
+      <th>Card Name</th>
+      <th>Twitter Card ID</th>
+    </tr>
+    <% @cards.each do |card| %>
+      <tr>
+        <td><%= card.name %></td>
+        <td><%= card.card %></td>
+      </tr>
+    <% end %>
+  </table>
 <% end %>
