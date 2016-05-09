@@ -129,7 +129,10 @@ def process_input(method, request)
   # check if we receive a card_id and if it doesn't exist
   if card.length > 0 && Card.find_by_card(card).nil?
     # if so, then create the card entry in our database
-    if Card.create(name: name, card: card)
+    new_card = Card.new
+    new_card.name = name
+    new_card.card = card
+    if new_card.save
       puts "database saved an entry! with card_id #{card}"
       return true
     else
