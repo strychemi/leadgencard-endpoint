@@ -134,7 +134,9 @@ def process_input(method, request)
   if card.length > 0 && Card.find_by_card(card).empty?
     # if so, then create the card entry in our database
     @card = Card.build(name: name, card: card)
-    return true if @card.save
+    if @card.save
+      puts "database saved an entry! with card_id #{card}"
+    end
   end
   # else, don't do anything and return false
   return false
