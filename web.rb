@@ -2,29 +2,11 @@ require 'sinatra'
 require 'sinatra/activerecord'
 require './config/environments'
 require './models/lead'
-# required configure block for Memcached Cloud for the server cache
-# Memcached is an in-memory key-value store for small chunks of arbitrary data
-# (strings, objects) from results of database calls, API calls, or page rendering
-# check out https://devcenter.heroku.com/articles/memcachedcloud for more info
+require './models/card'
+
 configure do
-    require 'dalli'
-
-    if ENV["MEMCACHEDCLOUD_SERVERS"]
-      servers = ENV["MEMCACHEDCLOUD_SERVERS"].split(',')
-      username = ENV["MEMCACHEDCLOUD_USERNAME"]
-      password = ENV["MEMCACHEDCLOUD_PASSWORD"]
-    else
-      servers = ['localhost:11211']
-      username = nil
-      password = nil
-    end
-    # hooks up memcached server to heroku or locally based on ENV vars using
-    # via the Dalli Gem (https://github.com/petergoldstein/dalli)
-    # which is a convenient Ruby client for accessing memcached servers
-    $cache = Dalli::Client.new(servers, :username => username, :password => password, :expires_in => 300)
-
-    # trying to see puts statements in heroku server logs
-    $stdout.sync = true
+  # trying to see puts statements in heroku server logs
+  $stdout.sync = true
 end
 
 # Inbound routes
@@ -56,17 +38,17 @@ end
 # read from cache
 get '/card/:id' do |card_id|
 
-    data = $cache.get(card_id)
+  data = $cache.get(card_id)
 
-    string = ''
+  string = ''
 
-    unless data.kind_of?(Array) && data.length > 0
-        string = "None found. Note that card data is not retained for longer than 5 minutes and is lost upon service restarts."
-    end
+  unless data.kind_of?(Array) && data.length > 0
+      string = "None found. Note that card data is not retained for longer than 5 minutes and is lost upon service restarts."
+  end
 
-    @records = data
+  @records = data
 
-    erb :card, :locals => { :card_id => card_id, :string => string }, :layout => :layout
+  erb :card, :locals => { :card_id => card_id, :string => string }, :layout => :layout
 end
 
 # delete card
@@ -94,17 +76,11 @@ end
 # Error responses
 
 error 403 do
-    'Forbidden, SSL is required'
+  'Forbidden, SSL is required'
 end
 
 error 426 do
-    'Bad Request, required lead generation parameters missing'
-    #erb :error426
-end
-
-error Dalli::RingError do
-  status 503
-  erb :cache_503, :layout => :layout
+  'Bad Request, required lead generation parameters missing'
 end
 
 # write to cache

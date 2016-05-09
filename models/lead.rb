@@ -1,2 +1,2 @@
-# class CreateLead < ActiveRecord::Base
-# end
+class Lead < ActiveRecord::Base
+end
