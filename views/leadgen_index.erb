@@ -2,7 +2,7 @@
 
 <p><%= status_message if !status_message.nil? %></p>
 
-<% if @cards.length == 0 %>
+<% if @cards && @cards.length == 0 %>
   <p>Sorry! The server has no record of lead generation cards!</p>
 <% else %>
 
